@@ -1,0 +1,4 @@
+# Theme Hub Configuration
+# Map macOS modes to specific profiles in ~/.config/theme/profiles/
+dark_profile="rose-pine"
+light_profile="rose-pine-dawn"

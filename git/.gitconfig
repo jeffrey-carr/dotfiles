@@ -1,0 +1,35 @@
+[user]
+	name = Jeff Carr
+	email = jeffrey.carr98@gmail.com
+
+[core]
+	editor = nvim
+	excludesfile = ~/.gitignore_global
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --oneline --graph --all
+	unstage = reset HEAD --
+	last = log -1 HEAD
+	amend = commit --amend --no-edit
+	
+[color]
+	ui = auto
+	
+[diff]
+	tool = vimdiff
+	
+[merge]
+	tool = vimdiff

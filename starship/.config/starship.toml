@@ -1,0 +1,40 @@
+add_newline = false
+format = """
+[╭─](bold blue) $directory$git_branch$git_status$git_state
+[╰─](bold blue) $character
+"""
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold yellow)"
+
+[directory]
+style = "bold cyan"
+read_only = " 󰌾"
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+style = "bold red"
+conflicted = "🏳"
+ahead = "⇡"
+behind = "⇣"
+diverged = "⇕"
+untracked = "🤷"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "👅"
+deleted = "🗑"
+
+[golang]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[rust]
+symbol = " "
