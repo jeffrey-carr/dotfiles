@@ -1,0 +1,22 @@
+# Ghostty Configuration
+# ---------------------
+
+theme = "rose-pine.conf"
+
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+
+# Performance & Aesthetics
+cursor-style = block
+cursor-style-blink = true
+# Prevent shell integration from overriding cursor settings
+shell-integration-features = no-cursor
+
+window-padding-x = 8
+window-padding-y = 8
+
+confirm-close-surface = false
+
+# Mouse & Input
+mouse-hide-while-typing = true
