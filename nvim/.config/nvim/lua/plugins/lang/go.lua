@@ -13,7 +13,15 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
-        gopls = {}
+        gopls = {
+          capabilities = {
+            workspace = {
+              didChangeWatchedFiles = {
+                dynamicRegistration = false,
+              },
+            },
+          },
+        }
       }
     }
   },
@@ -47,6 +55,9 @@ return {
     },
     config = function()
       require("neotest").setup({
+        discovery = {
+          enabled = false,
+        },
         adapters = {
           require("neotest-go")({
             experimental = {

@@ -18,17 +18,18 @@ symbol = " "
 style = "bold purple"
 
 [git_status]
-style = "bold red"
-conflicted = "🏳"
-ahead = "⇡"
-behind = "⇣"
-diverged = "⇕"
-untracked = "🤷"
-stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](green)'
-renamed = "👅"
-deleted = "🗑"
+format = '$all_status$ahead_behind '
+ahead = '[⬆](bold purple) '
+behind = '[⬇](bold purple) '
+staged = '[✚](green) '
+deleted = '[✖](red) '
+renamed = '[➜](purple) '
+stashed = '[✭](cyan) '
+untracked = '[◼](white) '
+modified = '[✱](blue) '
+conflicted = '[═](yellow) '
+diverged = '⇕ '
+up_to_date = ''
 
 [golang]
 symbol = " "

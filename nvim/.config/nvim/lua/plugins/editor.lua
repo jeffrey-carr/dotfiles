@@ -25,6 +25,7 @@ return {
     },
     opts = {
       filesystem = {
+        use_libuv_file_watcher = false, -- Disable file watcher to avoid ENOENT on symlinks (macOS)
         filtered_items = { show_hidden = true },
         follow_current_file = { enabled = true },
       },

@@ -10,18 +10,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Core options
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.clipboard = "unnamedplus"
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.expandtab = true
-vim.opt.smartindent = true
-vim.opt.termguicolors = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-
 require("lazy").setup({
   spec = {
     { import = "plugins" },
@@ -31,5 +19,9 @@ require("lazy").setup({
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     lazy = false,
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
-})
+  checker = { enabled = false }, -- automatically check for plugin updates
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
+  })
