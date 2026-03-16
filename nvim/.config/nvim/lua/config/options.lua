@@ -20,16 +20,3 @@ _G.jeff_profile = {
   is_home = is_home,
   is_work = is_work,
 }
-
--- Trigger notification on startup about the environment
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if is_work then
-      vim.notify("Logged in as work.")
-    elseif is_home then
-      vim.notify("Logged in as home. Happy coding :)")
-    else
-      vim.notify("Not logged in. AI agents disabled")
-    end
-  end,
-})

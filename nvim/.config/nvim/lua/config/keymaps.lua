@@ -1,6 +1,5 @@
 -- Core keymaps
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- (mapleader is set in config.lazy before plugins load)
 
 -- Ported leap window keybind from old_plugin_manager
 vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
