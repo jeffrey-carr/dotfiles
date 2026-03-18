@@ -1,8 +1,8 @@
 -- Core keymaps
 -- (mapleader is set in config.lazy before plugins load)
 
--- Ported leap window keybind from old_plugin_manager
-vim.keymap.set('n', 'S', '<Plug>(leap-from-window)')
+-- Remove search highlights
+vim.keymap.set("n", "<leader>rh", "<cmd>:noh<CR>", { desc = "Remove search highlights" })
 
 -- Splits
 vim.keymap.set("n", "<leader>s", "<cmd>vsplit<cr>", { desc = "Split vertically" })
@@ -20,3 +20,35 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>x", "<cmd>x<cr>", { desc = "Save and Quit" })
+
+-- Terminal
+vim.keymap.set({ "n", "t" }, "<leader>ot", function()
+	vim.notify("toggle_terminal not implemented", vim.log.levels.WARN)
+end, { desc = "Toggle bottom terminal" })
+
+-- Git
+local function copy_github_permalink()
+	-- Get absolute path to current file
+	local file = vim.fn.expand("%:p")
+	local line = vim.fn.line(".")
+
+	-- Get Git info
+	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	local repo = vim.fn
+		.system("git config --get remote.origin.url")
+		:gsub("%.git\n", "")
+		:gsub("git@github.com:", "https://github.com/")
+		:gsub("\n", "")
+	local commit = vim.fn.system("git rev-parse HEAD"):gsub("\n", "")
+
+	-- Relative path from Git root
+	local rel_path = file:sub(#git_root + 2) -- +2 to account for trailing slash
+
+	-- Construct URL
+	local url = string.format("%s/blob/%s/%s#L%d", repo, commit, rel_path, line)
+
+	-- Copy to clipboard
+	vim.fn.setreg("+", url)
+	vim.notify("📎 Copied remote link to clipboard", vim.log.levels.INFO)
+end
+vim.keymap.set("n", "<leader>rc", copy_github_permalink, { desc = "Copy GitHub permalink" })

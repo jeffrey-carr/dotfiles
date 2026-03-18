@@ -1,14 +1,15 @@
 # Ghostty Configuration
 # ---------------------
 
-theme = "rose-pine.conf"
+theme = "rose-pine-dawn.conf"
 
 # Font
-font-family = "JetBrainsMono Nerd Font"
+#font-family = "JetBrainsMono Nerd Font"
+font-family = "Monaspace Neon"
 font-size = 14
 
 # Performance & Aesthetics
-cursor-style = block
+cursor-style = bar
 cursor-style-blink = true
 # Prevent shell integration from overriding cursor settings
 shell-integration-features = no-cursor

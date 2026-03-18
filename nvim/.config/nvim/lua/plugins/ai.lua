@@ -34,13 +34,10 @@ return {
 							},
 						},
 					}),
-					gemini = require("codecompanion.adapters").extend("gemini", {
-						env = {
-							api_key = "GEMINI_API_KEY",
-						},
+					copilot = require("codecompanion.adapters").extend("copilot", {
 						schema = {
 							model = {
-								default = "gemini-3.1-pro-preview",
+								default = "gemini-3.0",
 							},
 						},
 					}),
