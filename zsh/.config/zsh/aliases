@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+alias run_podcache='cd ~/go/src/podcache_api && pipenv shell'
+alias rp='run_podcache'
+alias podcache='run_podcache'
+alias go_podcache='cd ~/go/src/podcache_api'
+alias gp='go_podcache'
+alias gom='cd ~/dev/omnipod'
+alias gplay='cd ~/dev/podcache_playbooks'
+alias gsnack='cd ~/dev/snacktrack'
+alias work='cd ~/Documents/workspaces'
+alias lg='lazygit'
+alias lint='echo "Running linter..." && uv run inv lint && echo "Linting done... Success!"'
+alias test='echo "Running tests..." && uv run inv test && echo "Testing done... Success!"'
+alias debug='pipenv run inv debug'
+alias check='lint && test'
+alias serve='pipenv run inv serve --dev-redis'
+alias serve_job='pipenv run inv job'
+alias table='~/.table_cmd'
+alias gnotes='cd ~/Documents/notes'
+alias notes='gnotes && nvim'
+alias preview='open -a Preview.app'
+alias tls='tmux list-sessions'
+alias tas='tmux attach-session -t'
+alias gwx='cd ~/dev/transcription/whisperx'
+alias door="curl 'http://192.168.86.42:8123/api/webhook/-EEaKjnjSEaeQ2ZiC3R8JVsQZ'"
+alias run_prom='prometheus --config.file=dev/prometheus.yml --storage.tsdb.path=".prom_data"'
+alias rprom='run_prom'
+alias checkstack='~/.config/zsh/scripts/branch_check.sh'
+alias cs='checkstack'
+alias cooler='curl http://192.168.86.42:8123/api/webhook/water-cooler-toggle-endpoint-U293AUxF1OUDU8uTl4seY3m5'
+alias scratch='python3 ~/scratch.py'
+
+# Neovim shortcuts
+alias e="nvim"
+
+# VSCode shortcuts
+alias open_api='open ~/.workspaces/podcache_api.code-workspace'
+alias op='open_api'
+alias open_playbooks='open ~/.workspaces/podcache_playbooks.code-workspace'
+alias oplay='open_playbooks'
+alias open_omni='open ~/.workspaces/omnipod.code-workspace'
+alias oo='open_omni'
+alias open_snacktrack='open ~/.workspaces/snacktrack.code-workspace'
+alias os='open_snacktrack'
+alias ip='curl ipv4.icanhazip.com'
+
+alias dev='gt co dev'
+alias mu='spotify_player'
+
+alias gts='gt sync --all'
+alias claudetree='~/.config/zsh/scripts/claude-worktree.sh'
+alias claudescript='claude-code-transcripts'

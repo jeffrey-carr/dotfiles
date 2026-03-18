@@ -1,11 +1,24 @@
 # ~/.zshrc
 
+export GOPATH=~/go
+export CUSTOMGOPATH=~/go/bin
+export JUMPPATH=~/dev/podcache_playbooks/inventory/bin
+export BREWPATH=/opt/homebrew/bin
+export NODEPATH=$HOME/.nvm/versions/node/v20.17.0/bin
+export LOCALINSTALLS=$HOME/.local/bin
+export CARGO=$HOME/.cargo/bin
+export THEME_SWITCHER=$HOME/.config/theme
+export PATH=$NODEPATH:$GOPATH:$CUSTOMGOPATH:$JUMPPATH:$BREWPATH:$LOCALINSTALLS:$CARGO:$THEME_SWITCHER:$PATH
+
 # Initialize Homebrew PATH
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -x "/usr/local/bin/brew" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
+
+# Custom commands
+source "$HOME/.config/zsh/aliases"
 
 # General Settings
 export EDITOR="nvim"
@@ -16,9 +29,6 @@ export LANG="en_US.UTF-8"
 # Fast directory switching & fuzzy finding
 eval "$(zoxide init zsh)"
 source <(fzf --zsh)
-
-# Add Theme Switcher to PATH
-export PATH="$HOME/.config/theme:$PATH"
 
 # History
 HISTFILE=~/.zsh_history
@@ -48,10 +58,6 @@ alias c="clear"
 alias ls="ls -G"
 alias ll="ls -lG"
 alias la="ls -laG"
-
-# Custom directory jumping
-alias dev="cd ~/dev"
-alias dot="cd ~/dev/new_dev_environment"
 
 # Secret Management
 if [ -f ~/.env.secrets ]; then
