@@ -19,11 +19,15 @@ vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 -- Useful default mappings
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
-vim.keymap.set("n", "<leader>x", "<cmd>x<cr>", { desc = "Save and Quit" })
+
+-- Buffers
+vim.keymap.set("n", "<leader>cb", function()
+	Snacks.bufdelete()
+end, { desc = "Close buffer" })
 
 -- Terminal
 vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-	vim.notify("toggle_terminal not implemented", vim.log.levels.WARN)
+	Snacks.terminal(nil, { win = { position = "bottom" } })
 end, { desc = "Toggle bottom terminal" })
 
 -- Git

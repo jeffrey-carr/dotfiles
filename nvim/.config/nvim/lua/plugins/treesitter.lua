@@ -60,4 +60,9 @@ return {
 		event = "BufRead",
 		opts = { max_lines = 3, trim_scope = "outer" },
 	},
+	{
+		"windwp/nvim-ts-autotag",
+		opts = {},
+		event = { "BufReadPost", "BufNewFile" },
+	},
 }
