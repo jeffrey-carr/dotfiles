@@ -10,10 +10,11 @@ return {
 			-- Force the plugin's lua directory into the runtime path manually
 			-- to bypass lazy.nvim loading race conditions.
 			local plugin_path = vim.fn.stdpath("data") .. "/lazy/nvim-treesitter/runtime"
-			-- vim.opt.rtp:append(plugin_path)
+			vim.opt.rtp:append(plugin_path)
 
 			-- Manual setup for nvim-treesitter execution (main branch has removed configs module)
 			local ensure_installed = {
+				"html_tags", -- required dependency for svelte
 				"c",
 				"lua",
 				"vim",

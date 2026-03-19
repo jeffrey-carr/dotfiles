@@ -1,4 +1,4 @@
-# Belafonte Day Profile
+# Belafonte Day Config
 export GHOSTTY_THEME="belafonte-day.conf"
 export TMUX_ACCENT="blue"
 export NVIM_THEME="kanagawa-lotus"
