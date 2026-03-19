@@ -1,7 +1,7 @@
 # Ghostty Configuration
 # ---------------------
 
-theme = "rose-pine-dawn.conf"
+theme = "rose-pine.conf"
 
 # Font
 #font-family = "JetBrainsMono Nerd Font"

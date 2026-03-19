@@ -29,7 +29,7 @@ return {
       end
 
       -- 3. Load Profile Settings
-      local profile_file = vim.fn.expand("~/.config/theme/profiles/" .. profile_name .. ".sh")
+      local profile_file = vim.fn.expand("~/.config/theme/themes/" .. profile_name .. "/config.sh")
       local profile = { 
         theme = "catppuccin",
         flavor = (mode == "light") and "latte" or "mocha" 

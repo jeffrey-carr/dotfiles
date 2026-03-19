@@ -30,12 +30,18 @@ fi
 # Determine Profile
 PROFILE_VAR="${MODE}_profile"
 PROFILE_NAME="${!PROFILE_VAR}"
-PROFILE_FILE="$HOME/.config/theme/profiles/${PROFILE_NAME}.sh"
+THEME_DIR="$HOME/.config/theme/themes/${PROFILE_NAME}"
 
-if [[ -f "$PROFILE_FILE" ]]; then
-    source "$PROFILE_FILE"
+if [[ -d "$THEME_DIR" ]]; then
+    # Load Theme Config
+    if [[ -f "$THEME_DIR/config.sh" ]]; then
+        source "$THEME_DIR/config.sh"
+    else
+        echo "❌ Theme config not found in $THEME_DIR"
+        exit 1
+    fi
 else
-    echo "❌ Profile file not found at $PROFILE_FILE"
+    echo "❌ Theme directory not found at $THEME_DIR"
     exit 1
 fi
 
@@ -53,8 +59,8 @@ GHOSTTY_PATHS=(
 
 for config in "${GHOSTTY_PATHS[@]}"; do
     if [[ -f "$config" ]]; then
-        # Use sed -i to update while preserving symlinks
-        sed -i '' "s|^theme[[:space:]]*=.*|theme = \"$GHOSTTY_THEME\"|" "$config"
+        # Use perl to update while preserving symlinks (sed -i has issues with them on macOS)
+        perl -i -pe "s|^theme[[:space:]]*=.*|theme = \"$GHOSTTY_THEME\"|" "$config"
         # Force a file-system event
         touch "$config"
         echo "✅ Ghostty updated: $config"
@@ -72,11 +78,23 @@ TMUX_THEME_FILE="$HOME/.config/theme/tmux_theme.conf"
 BORDER_COLOR=$([[ "$MODE" == "dark" ]] && echo "brightblack" || echo "brightwhite")
 BG_COLOR=$([[ "$MODE" == "dark" ]] && echo "black" || echo "white")
 
+# Default values if not provided by theme config
+TMUX_PANE_ACTIVE="${TMUX_PANE_ACTIVE:-$TMUX_ACCENT}"
+TMUX_TIME_BG="${TMUX_TIME_BG:-blue}"
+TMUX_DATE_BG="${TMUX_DATE_BG:-cyan}"
+SPOTIFY_COLOR="#1DB954"
+
 cat << EOF > "$TMUX_THEME_FILE"
-set -g pane-border-format " #[fg=$TMUX_ACCENT]#[fg=$BG_COLOR,bg=$TMUX_ACCENT,bold] #P #[bg=default,fg=$TMUX_ACCENT,nobold] "
-set -g pane-active-border-style fg=$TMUX_ACCENT
+# Pane Styling
+set -g pane-border-format " #[fg=$TMUX_PANE_ACTIVE]#[fg=$BG_COLOR,bg=$TMUX_PANE_ACTIVE,bold] #P #[bg=default,fg=$TMUX_PANE_ACTIVE,nobold] "
+set -g pane-active-border-style fg=$TMUX_PANE_ACTIVE
 set -g pane-border-style fg=$BORDER_COLOR
+
+# Window Status
 set -g window-status-current-format "#[fg=$TMUX_ACCENT]#[fg=$BG_COLOR,bg=$TMUX_ACCENT,bold]#I:#W#[bg=default,fg=$TMUX_ACCENT,nobold]"
+
+# Status Right (System Info)
+set -g status-right "#{?#(\$HOME/.tmux_scripts/tmux-spotify-info),#[fg=$SPOTIFY_COLOR]#[bg=$SPOTIFY_COLOR]#[fg=black]#(\$HOME/.tmux_scripts/tmux-spotify-info)#[bg=default]#[fg=$SPOTIFY_COLOR] ,}#[fg=$TMUX_TIME_BG]#[bg=$TMUX_TIME_BG]#[fg=black]󰥔 %H:%M#[bg=default]#[fg=$TMUX_TIME_BG] #[fg=$TMUX_DATE_BG]#[bg=$TMUX_DATE_BG]#[fg=black]󰃭 %Y-%m-%d#[bg=default]#[fg=$TMUX_DATE_BG]"
 EOF
 
 if command -v tmux &> /dev/null && tmux info &> /dev/null; then
