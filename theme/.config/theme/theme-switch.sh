@@ -69,7 +69,9 @@ done
 
 # 3. Force Ghostty UI Refresh (AppleScript Fail-safe)
 if pgrep -ix "ghostty" > /dev/null; then
-    osascript -e 'tell application "System Events" to tell process "Ghostty" to keystroke "," using {command down, shift down}' &>/dev/null
+  # send usr2
+  pkill -SIGUSR2 "ghostty"
+    # osascript -e 'tell application "System Events" to tell process "Ghostty" to keystroke "," using {command down, shift down}' &>/dev/null
     echo "✅ Ghostty reload signal sent"
 fi
 

@@ -5,12 +5,25 @@ return {
 		config = function()
 			vim.g.copilot_no_tab_map = true
 			-- Accept full suggestion
-			vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+			vim.api.nvim_set_keymap("i", "<C-L>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 			-- Accept partial suggestions
-			vim.api.nvim_set_keymap("i", "<M-l>", "copilot#AcceptWord()", { silent = true, expr = true })
+			vim.api.nvim_set_keymap("i", "<C-J>", "copilot#AcceptWord()", { silent = true, expr = true })
 			vim.api.nvim_set_keymap("i", "<M-j>", "copilot#AcceptLine()", { silent = true, expr = true })
 			-- Re-generate / Manual Suggest
 			vim.api.nvim_set_keymap("i", "<M-;>", "copilot#Suggest()", { silent = true, expr = true })
+			-- Enable/disable
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>ace",
+				"<cmd>Copilot enable<cr>",
+				{ silent = true, desc = "Enable Copilot" }
+			)
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>acd",
+				"<cmd>Copilot disable<cr>",
+				{ silent = true, desc = "Disable Copilot" }
+			)
 		end,
 	},
 
