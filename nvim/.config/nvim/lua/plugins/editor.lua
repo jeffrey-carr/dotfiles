@@ -68,10 +68,29 @@ return {
 		end,
 	},
 
+	-- Todo Comments (Actionable comment highlighting)
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		opts = {},
+		keys = {
+			{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find Todos (Project)" },
+			{
+				"<leader>fT",
+				function()
+					require("telescope").extensions["todo-comments"]["todo-comments"]({
+						search_dirs = { vim.fn.expand("%:p") },
+					})
+				end,
+				desc = "Find Todos (Buffer)",
+			},
+		},
+	},
+
 	-- Trouble (Diagnostics list)
 	{
 		"folke/trouble.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons", "folke/todo-comments.nvim" },
 		keys = {
 			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
 			{ "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
@@ -110,6 +129,19 @@ return {
 		keys = {
 			{ "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Make it rain" },
 		},
+	},
+
+	-- Inline Diagnostics
+	{
+		"rachartier/tiny-inline-diagnostic.nvim",
+		event = "VeryLazy",
+		priority = 1000,
+		config = function()
+			require("tiny-inline-diagnostic").setup({
+				preset = "modern",
+			})
+			vim.diagnostic.config({ virtual_text = false })
+		end,
 	},
 
 	-- Goto Preview
