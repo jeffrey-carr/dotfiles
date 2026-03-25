@@ -33,18 +33,24 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
+			"antosha417/nvim-lsp-file-operations",
 		},
 		keys = {
 			{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
 		},
 		opts = {
+			close_if_last_window = true,
+			enable_git_status = true,
 			filesystem = {
-				use_libuv_file_watcher = true, -- Disable file watcher to avoid ENOENT on symlinks (macOS)
-				filtered_items = { show_hidden = true },
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = true,
+					hide_hidden = false,
+				},
 				follow_current_file = { enabled = true },
 			},
 			window = {
-				width = 30,
+				width = 40,
 				mappings = {
 					["<space>"] = "none",
 				},
@@ -72,6 +78,7 @@ return {
 	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		event = "BufReadPost",
 		opts = {},
 		keys = {
 			{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find Todos (Project)" },
