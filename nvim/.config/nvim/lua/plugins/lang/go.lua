@@ -14,6 +14,25 @@ return {
     opts = {
       servers = {
         gopls = {
+          settings = {
+            gopls = {
+              completeUnimported = true,
+              usePlaceholders = false,
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+            },
+          },
           capabilities = {
             workspace = {
               didChangeWatchedFiles = {
