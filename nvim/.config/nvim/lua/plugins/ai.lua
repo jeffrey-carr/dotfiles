@@ -27,53 +27,65 @@ return {
 		end,
 	},
 
-	-- CodeCompanion (AI Assistant)
+	-- Agentic.nvim (AI Assistant via Claude Code)
 	{
-		"olimorris/codecompanion.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
-			"hrsh7th/nvim-cmp", -- Optional: For completion
-			"stevearc/dressing.nvim", -- Optional: For better UI
-			"nvim-telescope/telescope.nvim", -- Optional: For searching
+		"carlos-algms/agentic.nvim",
+		opts = {
+			provider = "claude-agent-acp",
+			windows = {
+				position = "right",
+				width = "40%",
+			},
 		},
-		config = function()
-			require("codecompanion").setup({
-				adapters = {
-					copilot = require("codecompanion.adapters").extend("copilot", {
-						schema = {
-							model = {
-								default = "gpt-4o",
-							},
-						},
-					}),
-					copilot = require("codecompanion.adapters").extend("copilot", {
-						schema = {
-							model = {
-								default = "gemini-3.0",
-							},
-						},
-					}),
-				},
-				strategies = {
-					chat = { adapter = "copilot" },
-					inline = { adapter = "copilot" },
-					agent = { adapter = "copilot" },
-				},
-				display = {
-					chat = {
-						window = {
-							layout = "vertical", -- float, vertical, horizontal
-							width = 0.4,
-						},
-					},
-				},
-			})
-		end,
 		keys = {
-			{ "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
-			{ "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
-			{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add selection to CodeCompanion Chat" },
+			{
+				"<C-\\>",
+				function()
+					require("agentic").toggle()
+				end,
+				mode = { "n", "v", "i" },
+				desc = "Toggle Agentic chat",
+			},
+			{
+				"<C-'>",
+				function()
+					require("agentic").add_selection_or_file_to_context()
+				end,
+				mode = { "n", "v" },
+				desc = "Add selection/file to Agentic context",
+			},
+			{
+				"<leader>aan",
+				function()
+					require("agentic").new_session()
+				end,
+				mode = { "n", "v" },
+				desc = "New Agentic session",
+			},
+			{
+				"<leader>aar",
+				function()
+					require("agentic").restore_session()
+				end,
+				desc = "Restore Agentic session",
+				mode = { "n" },
+			},
+			{
+				"<leader>aad", -- ai Diagnostics
+				function()
+					require("agentic").add_current_line_diagnostics()
+				end,
+				desc = "Add current line diagnostic to Agentic",
+				mode = { "n" },
+			},
+			{
+				"<leader>aaD", -- ai all Diagnostics
+				function()
+					require("agentic").add_buffer_diagnostics()
+				end,
+				desc = "Add all buffer diagnostics to Agentic",
+				mode = { "n" },
+			},
 		},
 	},
 }

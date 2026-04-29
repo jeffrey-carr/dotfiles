@@ -26,6 +26,24 @@ export PATH=$NODEPATH:$GOPATH:$CUSTOMGOPATH:$JUMPPATH:$LOCALINSTALLS:$CARGO:$THE
 
 export EDITOR="nvim"
 export VISUAL="nvim"
+KEYTIMEOUT=1  # 10ms — eliminates Esc lag without breaking arrow/function key sequences
+bindkey -v  # vi mode: Esc = normal, i/a/A/I = insert, hjkl = move (normal), 0/$ = line start/end
+            # In normal mode: w/b = word forward/back, d$/D = delete to end, cc = change line
+            # History: Up/Down arrow works in both modes; Ctrl+R for fuzzy history search
+
+# Cursor shape: beam in insert mode, block in normal mode
+function zle-keymap-select {
+  case $KEYMAP in
+    vicmd)      echo -ne '\e[2 q' ;;  # steady block
+    viins|main) echo -ne '\e[6 q' ;;  # steady bar
+  esac
+}
+zle -N zle-keymap-select
+
+function zle-line-init { echo -ne '\e[6 q' }  # start each prompt in insert mode (bar cursor)
+zle -N zle-line-init
+
+bindkey '^?' backward-delete-char  # fix backspace in vi mode
 export PAGER="less"
 export LANG="en_US.UTF-8"
 
@@ -65,8 +83,6 @@ HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory
-setopt sharehistory
-setopt incappendhistory
 
 alias v="nvim"
 alias vi="nvim"
@@ -97,7 +113,7 @@ setopt NO_CASE_MATCH
 setopt AUTO_CD
 setopt AUTO_LIST
 setopt AUTO_MENU
-setopt MENU_COMPLETE
+unsetopt MENU_COMPLETE
 setopt GLOB_DOTS
 setopt EXTENDED_GLOB
 
@@ -114,3 +130,10 @@ fi
 if [[ -f "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
   source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
+
+# bun completions
+[ -s "/Users/jeff/.bun/_bun" ] && source "/Users/jeff/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
