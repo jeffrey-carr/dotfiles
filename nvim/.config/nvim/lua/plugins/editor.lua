@@ -36,11 +36,34 @@ return {
 			"antosha417/nvim-lsp-file-operations",
 		},
 		keys = {
-			{ "<leader>e", "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" },
+			{
+				"<leader>e",
+				function()
+					for _, win in ipairs(vim.api.nvim_list_wins()) do
+						if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
+							vim.cmd("Neotree close")
+							return
+						end
+					end
+					vim.cmd("Neotree focus")
+				end,
+				desc = "Toggle Explorer",
+			},
 		},
 		opts = {
 			close_if_last_window = true,
 			enable_git_status = true,
+			source_selector = {
+				winbar = true,
+			},
+			event_handlers = {
+				{
+					event = "neo_tree_buffer_enter",
+					handler = function()
+						vim.opt_local.relativenumber = true
+					end,
+				},
+			},
 			filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,
@@ -53,9 +76,23 @@ return {
 				width = 40,
 				mappings = {
 					["<space>"] = "none",
+					["<Tab>"] = "next_source",
+					["<S-Tab>"] = "prev_source",
 				},
 			},
 		},
+	},
+	-- Window picker (used by neotree)
+	{
+		"s1n7ax/nvim-window-picker",
+		name = "window-picker",
+		event = "VeryLazy",
+		version = "2.*",
+		config = function()
+			require("window-picker").setup({
+				hint = "floating-big-letter",
+			})
+		end,
 	},
 
 	-- UI Improvements (Nicer inputs and selects)
@@ -124,9 +161,11 @@ return {
 	-- WindowSwap
 	{
 		"wesQ3/vim-windowswap",
+		init = function()
+			vim.g.windowswap_map_keys = 0 -- prevent default keymaps
+		end,
 		keys = {
-			{ "<leader>yw", "<cmd>call WindowSwap#MarkWindowSwap()<CR>", desc = "Yank window for swap" },
-			{ "<leader>pw", "<cmd>call WindowSwap#DoWindowSwap()<CR>", desc = "Paste window swap" },
+			{ "<leader>ww", "<cmd>call WindowSwap#EasyWindowSwap()<CR>", desc = "Swap window" },
 		},
 	},
 

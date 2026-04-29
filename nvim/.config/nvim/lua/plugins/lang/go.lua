@@ -69,28 +69,54 @@ return {
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
-      -- Go specific adapter
-      "nvim-neotest/neotest-go",
+      -- Go specific adapter with testify suite support
+      {
+        "fredrikaverpil/neotest-golang",
+        build = function()
+          vim.system({ "go", "install", "gotest.tools/gotestsum@latest" }):wait()
+        end,
+      },
     },
     config = function()
       require("neotest").setup({
         discovery = {
           enabled = false,
         },
+        diagnostic = {
+          enabled = true,
+          min_level = vim.log.levels.ERROR,
+        },
+        summary = {
+          follow_test = true,
+          open = "botright vsplit | vertical resize 40",
+        },
+        consumers = {
+          auto_summary = function(client)
+            client.listeners.run = function()
+              require("neotest").summary.open()
+            end
+            return {}
+          end,
+        },
         adapters = {
-          require("neotest-go")({
-            experimental = {
-              test_table = true,
-            },
-            args = { "-count=1", "-timeout=60s" }
+          require("neotest-golang")({
+            runner = "gotestsum",
+            gotestsum_args = { "--format", "standard-verbose" },
+            go_test_args = { "-v", "-count=1", "-timeout=60s" },
+            testify_enabled = true,
           })
         }
       })
     end,
     keys = {
       { "<leader>tr", function() require("neotest").run.run() end, desc = "Run nearest test" },
-      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%")) end, desc = "Run file tests" },
+      { "<leader>tf", function() require("neotest").run.run(vim.fn.expand("%:p")) end, desc = "Run file tests" },
+      { "<leader>td", function() require("neotest").run.run(vim.fn.getcwd()) end, desc = "Run all tests" },
       { "<leader>to", function() require("neotest").output_panel.toggle() end, desc = "Toggle test output panel" },
+      { "<leader>tO", function() require("neotest").output.open({ enter = true, short = true }) end, desc = "Show test failure (short)" },
+      { "<leader>ts", function() require("neotest").summary.toggle() end, desc = "Toggle test summary" },
+      { "<leader>tn", function() require("neotest").jump.next({ status = "failed" }) end, desc = "Jump to next failure" },
+      { "<leader>tp", function() require("neotest").jump.prev({ status = "failed" }) end, desc = "Jump to prev failure" },
     }
   }
 }
