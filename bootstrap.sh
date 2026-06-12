@@ -29,7 +29,7 @@ echo "📦 Stowing new configurations targeting $HOME..."
 mkdir -p ~/.config
 
 # Standard packages
-packages=("zsh" "tmux" "starship" "git" "nvim" "theme")
+packages=("zsh" "tmux" "starship" "git" "nvim" "theme" "lazygit")
 
 for pkg in "${packages[@]}"; do
     echo "  -> Stowing $pkg..."

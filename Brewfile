@@ -10,6 +10,8 @@ brew "jq"
 brew "stow"
 brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
+brew "lazygit"
+brew "git-delta"
 
 # Casks (GUI Applications)
 cask "wezterm"

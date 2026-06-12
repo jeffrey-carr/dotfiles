@@ -41,7 +41,7 @@ while true; do
 
     # Capture output from `gt up`
     gt_output=$(gt up --no-interactive 2>&1)
-    if [[ $gt_output == *"Already at the top most branch in the stack"* ]]; then
+    if [[ $gt_output == *"ERROR: Already at the top of the stack."* ]]; then
         echo "Reached the top of the stack, all done."
         break
     fi
