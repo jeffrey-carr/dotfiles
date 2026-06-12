@@ -51,7 +51,7 @@ echo "Switching to $MODE mode (Profile: $PROFILE_NAME)..."
 
 # 2. Update Ghostty Config
 GHOSTTY_PATHS=(
-    "$HOME/.config/ghostty/config" 
+    "$HOME/.config/ghostty/config"
     "$HOME/.config/ghostty/ghostty.conf"
     "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
     "$HOME/Library/Application Support/ghostty/config"
@@ -88,12 +88,15 @@ SPOTIFY_COLOR="#1DB954"
 
 cat << EOF > "$TMUX_THEME_FILE"
 # Pane Styling
-set -g pane-border-format " #[fg=$TMUX_PANE_ACTIVE]#[fg=$BG_COLOR,bg=$TMUX_PANE_ACTIVE,bold] #P #[bg=default,fg=$TMUX_PANE_ACTIVE,nobold] "
+set -g pane-border-format " #[fg=$TMUX_PANE_ACTIVE]#[fg=$BG_COLOR,bg=$TMUX_PANE_ACTIVE,bold] #P #[bg=default,fg=$TMUX_PANE_ACTIVE,nobold] "
 set -g pane-active-border-style fg=$TMUX_PANE_ACTIVE
 set -g pane-border-style fg=$BORDER_COLOR
 
 # Window Status
 set -g window-status-current-format "#[fg=$TMUX_ACCENT]#[fg=$BG_COLOR,bg=$TMUX_ACCENT,bold]#I:#W#[bg=default,fg=$TMUX_ACCENT,nobold]"
+
+# Session Pill (fixed theme accent color; prefix state handled in .tmux.conf)
+set -g status-left "#{?client_prefix,#[fg=red]#[bg=red]#[fg=black]󰠠 #S#[bg=default]#[fg=red] ,#[fg=$TMUX_ACCENT]#[bg=$TMUX_ACCENT]#[fg=black]#[bold]󰇄 #S#[bg=default]#[nobold]#[fg=$TMUX_ACCENT] } "
 
 # Status Right (System Info)
 set -g status-right "#{?#(\$HOME/.tmux_scripts/tmux-spotify-info),#[fg=$SPOTIFY_COLOR]#[bg=$SPOTIFY_COLOR]#[fg=black]#(\$HOME/.tmux_scripts/tmux-spotify-info)#[bg=default]#[fg=$SPOTIFY_COLOR] ,}#[fg=$TMUX_TIME_BG]#[bg=$TMUX_TIME_BG]#[fg=black]󰥔 %H:%M#[bg=default]#[fg=$TMUX_TIME_BG] #[fg=$TMUX_DATE_BG]#[bg=$TMUX_DATE_BG]#[fg=black]󰃭 %Y-%m-%d#[bg=default]#[fg=$TMUX_DATE_BG]"
@@ -111,6 +114,20 @@ if command -v nvim &> /dev/null; then
         nvim --server "$server" --remote-send "<Esc>:set background=$MODE<CR>" &> /dev/null || true
     done
     echo "✅ Neovim signaled"
+fi
+
+# 6. Update delta theme in lazygit config
+LAZYGIT_CONFIG="$HOME/.config/lazygit/config.yml"
+if [[ -f "$LAZYGIT_CONFIG" ]] && command -v delta &> /dev/null; then
+    if [[ "$MODE" == "light" ]]; then
+        DELTA_MODE="--light"
+        DELTA_THEME="GitHub"
+    else
+        DELTA_MODE="--dark"
+        DELTA_THEME="Catppuccin Frappe"
+    fi
+    perl -i -pe "s|pager: delta.*|pager: delta $DELTA_MODE --paging=never --syntax-theme=\"$DELTA_THEME\"|" "$LAZYGIT_CONFIG"
+    echo "✅ delta updated ($DELTA_THEME)"
 fi
 
 echo "🎉 Theme sync complete!"
