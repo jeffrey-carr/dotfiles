@@ -26,9 +26,10 @@ vim.keymap.set("n", "<leader>cb", function()
 end, { desc = "Close buffer" })
 
 -- Terminal
-vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-	Snacks.terminal(nil, { win = { position = "bottom" } })
-end, { desc = "Toggle bottom terminal" })
+vim.keymap.set({ "n", "t" }, "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle bottom terminal" })
+vim.keymap.set({ "n", "t" }, "<leader>of", "<cmd>ToggleTerm direction=float<cr>", { desc = "Toggle floating terminal" })
+vim.keymap.set({ "n", "t" }, "<leader>ov", "<cmd>ToggleTerm direction=vertical size=60<cr>", { desc = "Toggle vertical terminal" })
+vim.keymap.set({ "n", "t" }, "<leader>oh", "<cmd>ToggleTerm direction=horizontal size=20<cr>", { desc = "Toggle horizontal terminal" })
 
 -- Git
 local function copy_github_permalink()

@@ -1,12 +1,32 @@
 # ~/.zshrc
 
 # -----------------------------------------------------------------------------
+# ⚡ CORE UTILITIES & CACHING SYSTEM (For instant startup)
+# -----------------------------------------------------------------------------
+# Function to load a cached command or generate it if missing/outdated
+cache_eval() {
+  local cache_name="$1"
+  local gen_cmd="$2"
+  local binary="$3"
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+  local cache_file="${cache_dir}/${cache_name}.zsh"
+  local binary_path
+  binary_path=$(whence -p "$binary")
+
+  if [[ ! -f "$cache_file" || ( -n "$binary_path" && "$binary_path" -nt "$cache_file" ) ]]; then
+    mkdir -p "$cache_dir"
+    eval "$gen_cmd" > "$cache_file" 2>/dev/null
+  fi
+  source "$cache_file"
+}
+
+# -----------------------------------------------------------------------------
 # 🍺 1. HOMEBREW (Must be first to set up base PATH and $HOMEBREW_PREFIX)
 # -----------------------------------------------------------------------------
 if [[ -x "/opt/homebrew/bin/brew" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  cache_eval "brew_env" "/opt/homebrew/bin/brew shellenv" "/opt/homebrew/bin/brew"
 elif [[ -x "/usr/local/bin/brew" ]]; then
-  eval "$(/usr/local/bin/brew shellenv)"
+  cache_eval "brew_env" "/usr/local/bin/brew shellenv" "/usr/local/bin/brew"
 fi
 
 # -----------------------------------------------------------------------------
@@ -64,11 +84,11 @@ nvm() {
 source "$HOME/.config/zsh/aliases"
 
 # Fast directory switching & fuzzy finding
-eval "$(zoxide init zsh)"
-source <(fzf --zsh)
+cache_eval "zoxide_init" "zoxide init zsh" "zoxide"
+cache_eval "fzf_init" "fzf --zsh" "fzf"
 
 # Starship Prompt
-eval "$(starship init zsh)"
+cache_eval "starship_init" "starship init zsh" "starship"
 
 # Zsh Auto-suggestions (Sourced before syntax highlighting)
 if [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
@@ -99,7 +119,12 @@ alias la="ls -laG"
 autoload -Uz compinit
 
 # Check compdump once a day to save massive startup time
-if [[ -n ~/.config/zsh/.zcompdump(#qN.mh+24) ]]; then
+# We use extended glob to find if the file is older than 24 hours.
+setopt EXTENDED_GLOB
+local -a compdump_files
+compdump_files=( ~/.config/zsh/.zcompdump(#qN.mh+24) )
+
+if [[ ! -f ~/.config/zsh/.zcompdump ]] || (( ${#compdump_files} )); then
   compinit -i -d ~/.config/zsh/.zcompdump
 else
   compinit -C -d ~/.config/zsh/.zcompdump

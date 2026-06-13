@@ -1,27 +1,18 @@
 return {
-	-- Telescope
+	-- Fzf-Lua (High-performance fuzzy finder)
 	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {
-			defaults = {
-				-- Telescope respects .gitignore by default for find_files if using fd/rg/git
-				file_ignore_patterns = {
-					"mocks",
-					"mock_",
-					"%.git/",
-				},
-			},
-		},
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		opts = {},
 		keys = {
-			{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-			{ "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-			{ "<leader>fb", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
-			{ "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Help Tags" },
-			{ "<leader>fr", "<cmd> Telescope lsp_references<cr>", desc = "Telescope find references" },
-			{ "<leader>fd", "<cmd>Telescope lsp_definitions<cr>", desc = "Telescope find definitions" },
-			{ "<leader>fi", "<cmd>Telescope lsp_implementations<cr>", desc = "Telescope find implementation" },
-			{ "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Telescope find symbols" },
+			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files" },
+			{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
+			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+			{ "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Help Tags" },
+			{ "<leader>fr", "<cmd>FzfLua lsp_references<cr>", desc = "Find References" },
+			{ "<leader>fd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Find Definitions" },
+			{ "<leader>fi", "<cmd>FzfLua lsp_implementations<cr>", desc = "Find Implementation" },
+			{ "<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Find Symbols" },
 		},
 	},
 
@@ -102,27 +93,39 @@ return {
 		opts = {},
 	},
 
-	-- Leap (Cursor movement)
+	-- Flash (Modern cursor movement and treesitter navigation)
 	{
-		url = "https://codeberg.org/andyg/leap.nvim",
-		config = function()
-			vim.keymap.set({ "n", "x", "o" }, "s", "<Plug>(leap)")
-			vim.keymap.set({ "n", "x", "o" }, "S", "<Plug>(leap-backward)")
-		end,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {
+			modes = {
+				search = {
+					enabled = true, -- Set to true if you want labels on regular `/` searches
+				},
+			},
+		},
+		keys = {
+			{ "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+			{ "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			{ "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+			{ "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+		},
 	},
 
 	-- Todo Comments (Actionable comment highlighting)
 	{
 		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		event = "BufReadPost",
 		opts = {},
 		keys = {
-			{ "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Find Todos (Project)" },
+			{ "<leader>ft", "<cmd>TodoFzfLua<cr>", desc = "Find Todos (Project)" },
 			{
 				"<leader>fT",
 				function()
-					require("telescope").extensions["todo-comments"]["todo-comments"]({
+					require("todo-comments.fzf").todo({
 						search_dirs = { vim.fn.expand("%:p") },
 					})
 				end,

@@ -10,6 +10,7 @@ return {
   { "eldritch-theme/eldritch.nvim", name = "eldritch", lazy = true },
   { "rmehri01/onenord.nvim", name = "onenord", lazy = true },
   { "loctvl842/monokai-pro.nvim", name = "monokai-pro", lazy = true },
+  { "maxmx03/fluoromachine.nvim", name = "fluoromachine", lazy = true },
 
   {
     "brianmargolis/shades.nvim",
@@ -108,6 +109,16 @@ return {
             filter = filter,
           })
           vim.cmd.colorscheme "monokai-pro"
+        elseif theme_name == "fluoromachine" then
+          local fm_theme = "fluoromachine"
+          if variant_name == "retrowave" or variant_name == "delta" or variant_name == "cyberpunk" then
+            fm_theme = variant_name
+          end
+          require("fluoromachine").setup({
+            theme = fm_theme,
+            glow = true,
+          })
+          vim.cmd.colorscheme "fluoromachine"
         else
           pcall(vim.cmd.colorscheme, theme_name)
         end

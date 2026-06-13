@@ -52,7 +52,21 @@ echo "⚙️ Registering shades Launchd agents..."
 shades uninstall &>/dev/null || true
 shades install
 
+# 4.6 Build and Register Alfred Workflow
+if [ -d "/Applications/Alfred 5.app" ] || [ -d "/Applications/Alfred.app" ]; then
+    echo "⚙️ Setting up Alfred Shades Theme Picker..."
+    (
+        cd "$DOTFILES_DIR/shades"
+        python3 build_workflow.py
+        echo "⚙️ Launching Alfred to import the workflow..."
+        open shades.alfredworkflow
+    )
+else
+    echo "⚠️ Alfred app not found; skipping workflow registration."
+fi
+
 echo "✅ Stowing complete."
+
 
 # 5. Final Instructions
 echo "--------------------------------------------------"
