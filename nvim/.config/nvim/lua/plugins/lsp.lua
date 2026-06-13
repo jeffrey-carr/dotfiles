@@ -69,13 +69,10 @@ return {
       local configs = require("lspconfig.configs")
 
       for server, server_opts in pairs(opts.servers or {}) do
-        -- Skip jdtls (handled by nvim-jdtls)
-        if server ~= "jdtls" then
-          local config = configs[server]
-          if config then
-            server_opts.capabilities = capabilities
-            config.setup(server_opts)
-          end
+        local config = configs[server]
+        if config then
+          server_opts.capabilities = capabilities
+          config.setup(server_opts)
         end
       end
 

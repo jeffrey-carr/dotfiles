@@ -30,7 +30,6 @@ return {
 				"markdown",
 				"markdown_inline",
 				"json",
-				"java",
 			}
 
 			-- Ensure parsers are installed
