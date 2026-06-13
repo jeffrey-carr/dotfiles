@@ -1,0 +1,207 @@
+socket-path: "/tmp/theme-change.sock"
+defaultLightTheme: "rose-pine;dawn"
+defaultDarkTheme: "rose-pine;main"
+daemon:
+  enabled-components:
+    - "fzf"
+    - "ghostty"
+    - "mac"
+    - "tmux"
+client:
+  ghostty:
+    path: "~/.config/ghostty/theme-current.conf"
+  fzf:
+    theme: >
+      --color=fg:{FG},fg+:{YELLOW},bg:-1,bg+:{BG0}
+      --color=hl:{YELLOW},hl+:{RED},info:{YELLOW},marker:{FG}
+      --color=prompt:{GREEN},spinner:{YELLOW},pointer:{YELLOW},header:{YELLOW},label:{FG},query:{PURPLE}
+      --border="none"
+      --height="30%"
+      --layout="reverse"
+      --info="hidden"
+  tmux:
+    status-bg: "default"
+    status-fg: "{FG}"
+    window-status-format: " #I:#W "
+    window-status-current-format: "#[fg={PURPLE}]#[fg={BG0},bg={PURPLE},bold]#I:#W#[bg=default,fg={PURPLE},nobold]"
+    status-left: "#{?client_prefix,#[fg=red]#[bg=red]#[fg={BG0}]󰠠 #S#[bg=default]#[fg=red] ,#[fg={PURPLE}]#[bg={PURPLE}]#[fg={BG0}]#[bold]󰇄 #S#[bg=default]#[nobold]#[fg={PURPLE}] } "
+    status-right: "#{?#($HOME/.tmux_scripts/tmux-spotify-info),#[fg={GREEN}]#[bg={GREEN}]#[fg={BG0}]#($HOME/.tmux_scripts/tmux-spotify-info)#[bg=default]#[fg={GREEN}] ,}#[fg={BLUE}]#[bg={BLUE}]#[fg={BG0}]󰥔 %H:%M#[bg=default]#[fg={BLUE}] #[fg={PURPLE}]#[bg={PURPLE}]#[fg={BG0}]󰃭 %Y-%m-%d#[bg=default]#[fg={PURPLE}]"
+themes:
+  rose-pine:
+    name: "rose-pine"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#191724"
+          BG0: "#191724"
+          BG1: "#1f1d2e"
+          BG2: "#26233a"
+          BG3: "#31748f"
+          BG4: "#9ccfd8"
+          BG5: "#ebbcba"
+          RED: "#eb6f92"
+          ORANGE: "#f6c177"
+          YELLOW: "#f6c177"
+          GREEN: "#31748f"
+          BLUE: "#9ccfd8"
+          AQUA: "#9ccfd8"
+          PURPLE: "#c4a7e7"
+          FG: "#e0def4"
+      dawn:
+        light: true
+        colors:
+          BGDIM: "#faf4ed"
+          BG0: "#faf4ed"
+          BG1: "#f2e9e1"
+          BG2: "#e8e1d9"
+          BG3: "#56949f"
+          BG4: "#286983"
+          BG5: "#ea9d34"
+          RED: "#b4637a"
+          ORANGE: "#ea9d34"
+          YELLOW: "#ea9d34"
+          GREEN: "#56949f"
+          BLUE: "#286983"
+          AQUA: "#286983"
+          PURPLE: "#907aa9"
+          FG: "#575279"
+  nordic:
+    name: "nordic"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#191D24"
+          BG0: "#242933"
+          BG1: "#1E222A"
+          BG2: "#222630"
+          BG3: "#2E3440"
+          BG4: "#3B4252"
+          BG5: "#434C5E"
+          RED: "#BF616A"
+          ORANGE: "#D08770"
+          YELLOW: "#EBCB8B"
+          GREEN: "#A3BE8C"
+          BLUE: "#81A1C1"
+          AQUA: "#88C0D0"
+          PURPLE: "#B48EAD"
+          FG: "#BBC3D4"
+  everforest:
+    name: "everforest"
+    variants:
+      dark-medium:
+        light: false
+        colors:
+          BGDIM: "#232A2E"
+          BG0: "#2D353B"
+          BG1: "#343F44"
+          BG2: "#3D484D"
+          BG3: "#475258"
+          BG4: "#4F585E"
+          BG5: "#56635f"
+          RED: "#E67E80"
+          ORANGE: "#E69875"
+          YELLOW: "#DBBC7F"
+          GREEN: "#A7C080"
+          BLUE: "#7FBBB3"
+          AQUA: "#83C092"
+          PURPLE: "#D699B6"
+          FG: "#D3C6AA"
+      light-medium:
+        light: true
+        colors:
+          BGDIM: "#EFEBD4"
+          BG0: "#FDF6E3"
+          BG1: "#F4F0D9"
+          BG2: "#EFEBD4"
+          BG3: "#E6E2CC"
+          BG4: "#E0DCC7"
+          BG5: "#BDC3AF"
+          RED: "#F85552"
+          ORANGE: "#F57D26"
+          YELLOW: "#DFA000"
+          GREEN: "#8DA101"
+          BLUE: "#3A94C5"
+          AQUA: "#35A77C"
+          PURPLE: "#DF69BA"
+          FG: "#5C6A72"
+  nightfox:
+    name: "nightfox"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#131a24"
+          BG0: "#192330"
+          BG1: "#212e3f"
+          BG2: "#29394f"
+          BG3: "#2d3f56"
+          BG4: "#39506d"
+          BG5: "#4d6b92"
+          RED: "#c94f6d"
+          ORANGE: "#f4a261"
+          YELLOW: "#dbc074"
+          GREEN: "#81b29a"
+          BLUE: "#719cd6"
+          AQUA: "#63cdcf"
+          PURPLE: "#9d79d6"
+          FG: "#cdcecf"
+      dawn:
+        light: true
+        colors:
+          BGDIM: "#ebe5df"
+          BG0: "#faf4ed"
+          BG1: "#ebe0df"
+          BG2: "#ebdfe4"
+          BG3: "#e1d8d5"
+          BG4: "#bdbfc9"
+          BG5: "#a8a3b3"
+          RED: "#b4637a"
+          ORANGE: "#d7827e"
+          YELLOW: "#ea9d34"
+          GREEN: "#618774"
+          BLUE: "#286983"
+          AQUA: "#56949f"
+          PURPLE: "#907aa9"
+          FG: "#575279"
+  cyberdream:
+    name: "cyberdream"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#16181a"
+          BG0: "#16181a"
+          BG1: "#1e2124"
+          BG2: "#3c4048"
+          BG3: "#3c4048"
+          BG4: "#3c4048"
+          BG5: "#3c4048"
+          RED: "#ff6e5e"
+          ORANGE: "#ffbd5e"
+          YELLOW: "#f1ff5e"
+          GREEN: "#5eff6c"
+          BLUE: "#5ea1ff"
+          AQUA: "#5ef1ff"
+          PURPLE: "#bd5eff"
+          FG: "#ffffff"
+      light:
+        light: true
+        colors:
+          BGDIM: "#ffffff"
+          BG0: "#ffffff"
+          BG1: "#eaeaea"
+          BG2: "#acacac"
+          BG3: "#acacac"
+          BG4: "#acacac"
+          BG5: "#acacac"
+          RED: "#d11500"
+          ORANGE: "#d17c00"
+          YELLOW: "#997b00"
+          GREEN: "#008b0c"
+          BLUE: "#0057d1"
+          AQUA: "#008c99"
+          PURPLE: "#a018ff"
+          FG: "#16181a"
+

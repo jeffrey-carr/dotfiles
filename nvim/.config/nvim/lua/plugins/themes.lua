@@ -1,95 +1,85 @@
 return {
-  -- Theme Profile Loader
-  -- This plugin reads the global theme state and applies the current theme profile.
+  { "catppuccin/nvim", name = "catppuccin", lazy = true },
+  { "folke/tokyonight.nvim", lazy = true },
+  { "rebelot/kanagawa.nvim", lazy = true },
+  { "rose-pine/neovim", name = "rose-pine", lazy = true },
+  { "AlexvZyl/nordic.nvim", name = "nordic", lazy = true },
+  { "sainnhe/everforest", name = "everforest", lazy = true },
+  { "EdenEast/nightfox.nvim", name = "nightfox", lazy = true },
+  { "scottmckendry/cyberdream.nvim", name = "cyberdream", lazy = true },
+
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
+    "brianmargolis/shades.nvim",
+    name = "shades",
     lazy = false,
+    event = "VimEnter",
     config = function()
-      -- 1. Read Mode (dark/light)
-      local state_file = vim.fn.expand("~/.config/theme/theme_state")
-      local mode = "dark"
-      local f_state = io.open(state_file, "r")
-      if f_state then
-        mode = f_state:read("*l") or "dark"
-        f_state:close()
-      end
-
-      -- 2. Read Active Profile
-      local config_file = vim.fn.expand("~/.config/theme/theme_config")
-      local profile_name = (mode == "light") and "catppuccin-latte" or "catppuccin-mocha"
-      local f_config = io.open(config_file, "r")
-      if f_config then
-        for line in f_config:lines() do
-          local p = line:match(mode .. "_profile=\"(.+)\"")
-          if p then profile_name = p end
-        end
-        f_config:close()
-      end
-
-      -- 3. Load Profile Settings
-      local profile_file = vim.fn.expand("~/.config/theme/themes/" .. profile_name .. "/config.sh")
-      local profile = { 
-        theme = "catppuccin",
-        flavor = (mode == "light") and "latte" or "mocha" 
-      }
-      local f_prof = io.open(profile_file, "r")
-      if f_prof then
-        for line in f_prof:lines() do
-          local theme = line:match("NVIM_THEME=\"(.+)\"")
-          if theme then profile.theme = theme end
-          local flavor = line:match("NVIM_FLAVOR=\"(.+)\"")
-          if flavor then profile.flavor = flavor end
-        end
-        f_prof:close()
-      end
-
-      -- 4. Setup Themes
+      -- Setup theme configurations
       require("catppuccin").setup({
-        flavour = profile.flavor,
         integrations = {
           cmp = true, gitsigns = true, nvimtree = true, treesitter = true,
           notify = false, mini = { enabled = true },
         },
       })
 
-      require("tokyonight").setup({ style = "storm" })
-      
-      require("kanagawa").setup({
-        theme = "wave",
-        background = { dark = "wave", light = "lotte" }
-      })
-
       require("rose-pine").setup({
-        variant = "auto", -- auto, main, moon, or dawn
-        dark_variant = "main", -- main, moon, or dawn
+        variant = "auto",
+        dark_variant = "main",
         dim_inactive_windows = false,
         extend_background_behind_borders = true,
       })
 
-      -- 5. Apply
-      vim.opt.background = (mode == "light") and "light" or "dark"
-      
-      -- Special handling for flavor-based themes
-      if profile.theme == "catppuccin" then
-        vim.cmd.colorscheme "catppuccin"
-      elseif profile.theme == "rose-pine" then
-        if profile.flavor == "dawn" then
-          vim.cmd.colorscheme "rose-pine-dawn"
-        elseif profile.flavor == "moon" then
-          vim.cmd.colorscheme "rose-pine-moon"
+      require("cyberdream").setup({
+        transparent = false,
+        italic_comments = true,
+      })
+
+      local shades = require("shades")
+      shades.set_color = function(theme)
+        -- theme is "themeName;variantName" (e.g. "rose-pine;dawn")
+        local parts = vim.split(theme, ";")
+        local theme_name = parts[1]
+        local variant_name = parts[2] or ""
+
+        -- Determine background style
+        local is_light = variant_name:find("light") or variant_name:find("dawn") or variant_name:find("latte")
+        vim.opt.background = is_light and "light" or "dark"
+
+        -- Apply colorscheme
+        if theme_name == "rose-pine" then
+          if variant_name == "dawn" then
+            vim.cmd.colorscheme "rose-pine-dawn"
+          elseif variant_name == "moon" then
+            vim.cmd.colorscheme "rose-pine-moon"
+          else
+            vim.cmd.colorscheme "rose-pine"
+          end
+        elseif theme_name == "catppuccin" then
+          if variant_name == "latte" then
+            vim.cmd.colorscheme "catppuccin-latte"
+          elseif variant_name == "mocha" then
+            vim.cmd.colorscheme "catppuccin-mocha"
+          else
+            vim.cmd.colorscheme "catppuccin"
+          end
+        elseif theme_name == "nordic" then
+          vim.cmd.colorscheme "nordic"
+        elseif theme_name == "everforest" then
+          vim.g.everforest_background = "medium"
+          vim.cmd.colorscheme "everforest"
+        elseif theme_name == "nightfox" then
+          if variant_name == "dawn" or variant_name == "light" then
+            vim.cmd.colorscheme "dawnfox"
+          else
+            vim.cmd.colorscheme "nightfox"
+          end
+        elseif theme_name == "cyberdream" then
+          vim.cmd.colorscheme "cyberdream"
         else
-          vim.cmd.colorscheme "rose-pine"
+          pcall(vim.cmd.colorscheme, theme_name)
         end
-      else
-        vim.cmd.colorscheme(profile.theme)
       end
+      shades.listen()
     end,
   },
-
-  -- Theme Plugins
-  { "folke/tokyonight.nvim", lazy = true },
-  { "rebelot/kanagawa.nvim", lazy = true },
-  { "rose-pine/neovim", name = "rose-pine", lazy = true },
 }
