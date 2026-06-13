@@ -50,8 +50,9 @@ return {
 
   -- Markdown Preview
   {
-    "OXY2DEV/markview.nvim",
-    lazy = false,      -- Recommended
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
   },
 
   -- Code Snapshots
