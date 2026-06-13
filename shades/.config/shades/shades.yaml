@@ -486,6 +486,64 @@ themes:
           AQUA: "#1c8ca8"
           PURPLE: "#7058be"
           FG: "#29242a"
+  fluoromachine:
+    name: "fluoromachine"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#1c082d"
+          BG0: "#200933"
+          BG1: "#262335"
+          BG2: "#241B2F"
+          BG3: "#463465"
+          BG4: "#495495"
+          BG5: "#8C57C7"
+          RED: "#FE4450"
+          ORANGE: "#FF8B39"
+          YELLOW: "#FFCC00"
+          GREEN: "#72F1B8"
+          BLUE: "#61E2FF"
+          AQUA: "#61E2FF"
+          PURPLE: "#AF6DF9"
+          FG: "#8BA7A7"
+      retrowave:
+        light: false
+        colors:
+          BGDIM: "#241B2F"
+          BG0: "#262335"
+          BG1: "#282A36"
+          BG2: "#3c4048"
+          BG3: "#463465"
+          BG4: "#495495"
+          BG5: "#495495"
+          RED: "#FE4450"
+          ORANGE: "#FF8B39"
+          YELLOW: "#FFCC00"
+          GREEN: "#72F1B8"
+          BLUE: "#61E2FF"
+          AQUA: "#61E2FF"
+          PURPLE: "#AF6DF9"
+          FG: "#F8F8F8"
+      delta:
+        light: false
+        colors:
+          BGDIM: "#251D2B"
+          BG0: "#2B2233"
+          BG1: "#302737"
+          BG2: "#352C3C"
+          BG3: "#492949"
+          BG4: "#925393"
+          BG5: "#925393"
+          RED: "#FF98B3"
+          ORANGE: "#FFD298"
+          YELLOW: "#EDFF98"
+          GREEN: "#C0FF98"
+          BLUE: "#98FFFB"
+          AQUA: "#98FFFB"
+          PURPLE: "#D598FF"
+          FG: "#EFEFFD"
+
 
 
 
