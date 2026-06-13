@@ -7,6 +7,9 @@ return {
   { "sainnhe/everforest", name = "everforest", lazy = true },
   { "EdenEast/nightfox.nvim", name = "nightfox", lazy = true },
   { "scottmckendry/cyberdream.nvim", name = "cyberdream", lazy = true },
+  { "eldritch-theme/eldritch.nvim", name = "eldritch", lazy = true },
+  { "rmehri01/onenord.nvim", name = "onenord", lazy = true },
+  { "loctvl842/monokai-pro.nvim", name = "monokai-pro", lazy = true },
 
   {
     "brianmargolis/shades.nvim",
@@ -32,6 +35,17 @@ return {
       require("cyberdream").setup({
         transparent = false,
         italic_comments = true,
+      })
+
+      require("eldritch").setup({
+        transparent = false,
+      })
+
+      require("onenord").setup({
+      })
+
+      require("monokai-pro").setup({
+        filter = "pro",
       })
 
       local shades = require("shades")
@@ -75,6 +89,25 @@ return {
           end
         elseif theme_name == "cyberdream" then
           vim.cmd.colorscheme "cyberdream"
+        elseif theme_name == "eldritch" then
+          if variant_name == "darker" then
+            vim.cmd.colorscheme "eldritch-dark"
+          elseif variant_name == "minimal" then
+            vim.cmd.colorscheme "eldritch-minimal"
+          else
+            vim.cmd.colorscheme "eldritch"
+          end
+        elseif theme_name == "onenord" then
+          vim.cmd.colorscheme "onenord"
+        elseif theme_name == "monokai-pro" then
+          local filter = "pro"
+          if variant_name == "classic" or variant_name == "machine" or variant_name == "octagon" or variant_name == "ristretto" or variant_name == "spectrum" or variant_name == "light" then
+            filter = variant_name
+          end
+          require("monokai-pro").setup({
+            filter = filter,
+          })
+          vim.cmd.colorscheme "monokai-pro"
         else
           pcall(vim.cmd.colorscheme, theme_name)
         end
