@@ -16,6 +16,12 @@ return {
         vtsls = {
           settings = {
             typescript = {
+              suggest = {
+                completeFunctionCalls = false,
+                autoImports = true,
+                includeCompletionsForModuleExports = true,
+                labelDetails = true,
+              },
               inlayHints = {
                 parameterNames = { enabled = "all" },
                 parameterTypes = { enabled = true },
@@ -23,6 +29,14 @@ return {
                 propertyDeclarationTypes = { enabled = true },
                 functionLikeReturnTypes = { enabled = true },
                 enumMemberValues = { enabled = true },
+              },
+            },
+            javascript = {
+              suggest = {
+                completeFunctionCalls = false,
+                autoImports = true,
+                includeCompletionsForModuleExports = true,
+                labelDetails = true,
               },
             },
           },

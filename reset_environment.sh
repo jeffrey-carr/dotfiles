@@ -19,6 +19,7 @@ targets=(
     ".config/nvim"
     ".config/ghostty"
     ".config/theme"
+    ".config/shades"
     ".config/starship.toml"
     ".local/share/nvim"
     ".local/state/nvim"

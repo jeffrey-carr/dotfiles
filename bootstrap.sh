@@ -29,7 +29,7 @@ echo "📦 Stowing new configurations targeting $HOME..."
 mkdir -p ~/.config
 
 # Standard packages
-packages=("zsh" "tmux" "starship" "git" "nvim" "theme" "lazygit")
+packages=("zsh" "tmux" "starship" "git" "nvim" "shades" "lazygit")
 
 for pkg in "${packages[@]}"; do
     echo "  -> Stowing $pkg..."
@@ -43,6 +43,14 @@ echo "  -> Stowing ghostty (Deep Link for reload stability)..."
 mkdir -p ~/.config/ghostty
 ln -sf "$DOTFILES_DIR/ghostty/.config/ghostty/config" ~/.config/ghostty/config
 ln -sf "$DOTFILES_DIR/ghostty/.config/ghostty/themes" ~/.config/ghostty/themes
+ln -sf "$DOTFILES_DIR/ghostty/.config/ghostty/theme-current.conf" ~/.config/ghostty/theme-current.conf
+
+# 4.5 Install Shades and Setup Launchd Daemons
+echo "⚙️ Installing shades..."
+go install github.com/brianmargolis/shades@latest
+echo "⚙️ Registering shades Launchd agents..."
+shades uninstall &>/dev/null || true
+shades install
 
 echo "✅ Stowing complete."
 
@@ -54,5 +62,4 @@ echo ""
 echo "Remaining Manual Steps:"
 echo "1. Run 'source ~/.zshrc' or restart your terminal."
 echo "2. Run 'nvim' to let lazy.nvim install plugins."
-echo "3. Run 'swift ~/.config/theme/macos-theme-listener.swift &' to enable auto-theme sync."
 echo "--------------------------------------------------"
