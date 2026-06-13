@@ -204,4 +204,289 @@ themes:
           AQUA: "#008c99"
           PURPLE: "#a018ff"
           FG: "#16181a"
+  catppuccin:
+    name: "catppuccin"
+    variants:
+      mocha:
+        light: false
+        colors:
+          BGDIM: "#11111b"
+          BG0: "#1e1e2e"
+          BG1: "#181825"
+          BG2: "#313244"
+          BG3: "#45475a"
+          BG4: "#585b70"
+          BG5: "#6c7086"
+          RED: "#f38ba8"
+          ORANGE: "#fab387"
+          YELLOW: "#f9e2af"
+          GREEN: "#a6e3a1"
+          BLUE: "#89b4fa"
+          AQUA: "#94e2d5"
+          PURPLE: "#cba6f7"
+          FG: "#cdd6f4"
+      latte:
+        light: true
+        colors:
+          BGDIM: "#dce0e8"
+          BG0: "#eff1f5"
+          BG1: "#e6e9ef"
+          BG2: "#ccd0da"
+          BG3: "#bcc0cc"
+          BG4: "#acb0be"
+          BG5: "#9ca0b0"
+          RED: "#d20f39"
+          ORANGE: "#fe640b"
+          YELLOW: "#df8e1d"
+          GREEN: "#40a02b"
+          BLUE: "#1e66f5"
+          AQUA: "#179299"
+          PURPLE: "#8839ef"
+          FG: "#4c4f69"
+  eldritch:
+    name: "eldritch"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#171928"
+          BG0: "#212337"
+          BG1: "#171928"
+          BG2: "#292e42"
+          BG3: "#414868"
+          BG4: "#5866A2"
+          BG5: "#6473B7"
+          RED: "#f16c75"
+          ORANGE: "#f7c67f"
+          YELLOW: "#f1fc79"
+          GREEN: "#37f499"
+          BLUE: "#10A1BD"
+          AQUA: "#04d1f9"
+          PURPLE: "#a48cf2"
+          FG: "#ebfafa"
+      darker:
+        light: false
+        colors:
+          BGDIM: "#0f101a"
+          BG0: "#171928"
+          BG1: "#0f101a"
+          BG2: "#1e2033"
+          BG3: "#2a2e45"
+          BG4: "#3d4775"
+          BG5: "#445084"
+          RED: "#cc5860"
+          ORANGE: "#d4a666"
+          YELLOW: "#ccd663"
+          GREEN: "#2dcc82"
+          BLUE: "#0c7a94"
+          AQUA: "#0396b3"
+          PURPLE: "#8b75d9"
+          FG: "#d8e6e6"
+      minimal:
+        light: false
+        colors:
+          BGDIM: "#171928"
+          BG0: "#212337"
+          BG1: "#171928"
+          BG2: "#292e42"
+          BG3: "#414868"
+          BG4: "#5866A2"
+          BG5: "#6473B7"
+          RED: "#f16c75"
+          ORANGE: "#e0e0e0"
+          YELLOW: "#e0e0e0"
+          GREEN: "#37f499"
+          BLUE: "#e0e0e0"
+          AQUA: "#04d1f9"
+          PURPLE: "#e0e0e0"
+          FG: "#ebfafa"
+  onenord:
+    name: "onenord"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#2E3440"
+          BG0: "#2E3440"
+          BG1: "#353B49"
+          BG2: "#3B4252"
+          BG3: "#3F4758"
+          BG4: "#434C5E"
+          BG5: "#4C566A"
+          RED: "#D57780"
+          ORANGE: "#D08F70"
+          YELLOW: "#EBCB8B"
+          GREEN: "#A3BE8C"
+          BLUE: "#81A1C1"
+          AQUA: "#88C0D0"
+          PURPLE: "#B988B0"
+          FG: "#C8D0E0"
+      light:
+        light: true
+        colors:
+          BGDIM: "#F7F8FA"
+          BG0: "#F7F8FA"
+          BG1: "#EFF0F2"
+          BG2: "#EDEEF0"
+          BG3: "#EAEBED"
+          BG4: "#DFE1E4"
+          BG5: "#DCDEE1"
+          RED: "#CB4F53"
+          ORANGE: "#EE5E25"
+          YELLOW: "#BA793E"
+          GREEN: "#48A53D"
+          BLUE: "#3879C5"
+          AQUA: "#3EA1AD"
+          PURPLE: "#9F4ACA"
+          FG: "#2E3440"
+  monokai-pro:
+    name: "monokai-pro"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#19181a"
+          BG0: "#2d2a2e"
+          BG1: "#221f22"
+          BG2: "#403e41"
+          BG3: "#5b595c"
+          BG4: "#727072"
+          BG5: "#939293"
+          RED: "#ff6188"
+          ORANGE: "#fc9867"
+          YELLOW: "#ffd866"
+          GREEN: "#a9dc76"
+          BLUE: "#78dce8"
+          AQUA: "#78dce8"
+          PURPLE: "#ab9df2"
+          FG: "#fcfcfa"
+      pro:
+        light: false
+        colors:
+          BGDIM: "#19181a"
+          BG0: "#2d2a2e"
+          BG1: "#221f22"
+          BG2: "#403e41"
+          BG3: "#5b595c"
+          BG4: "#727072"
+          BG5: "#939293"
+          RED: "#ff6188"
+          ORANGE: "#fc9867"
+          YELLOW: "#ffd866"
+          GREEN: "#a9dc76"
+          BLUE: "#78dce8"
+          AQUA: "#78dce8"
+          PURPLE: "#ab9df2"
+          FG: "#fcfcfa"
+      classic:
+        light: false
+        colors:
+          BGDIM: "#161613"
+          BG0: "#272822"
+          BG1: "#1d1e19"
+          BG2: "#3b3c35"
+          BG3: "#57584f"
+          BG4: "#6e7066"
+          BG5: "#919288"
+          RED: "#f92672"
+          ORANGE: "#fd971f"
+          YELLOW: "#e6db74"
+          GREEN: "#a6e22e"
+          BLUE: "#66d9ef"
+          AQUA: "#66d9ef"
+          PURPLE: "#ae81ff"
+          FG: "#fdfff1"
+      machine:
+        light: false
+        colors:
+          BGDIM: "#161b1e"
+          BG0: "#273136"
+          BG1: "#1d2528"
+          BG2: "#3a4449"
+          BG3: "#545f62"
+          BG4: "#6b7678"
+          BG5: "#8b9798"
+          RED: "#ff6d7e"
+          ORANGE: "#ffb270"
+          YELLOW: "#ffed72"
+          GREEN: "#a2e57b"
+          BLUE: "#7cd5f1"
+          AQUA: "#7cd5f1"
+          PURPLE: "#baa0f8"
+          FG: "#f2fffc"
+      octagon:
+        light: false
+        colors:
+          BGDIM: "#161821"
+          BG0: "#282a3a"
+          BG1: "#1e1f2b"
+          BG2: "#3a3d4b"
+          BG3: "#535763"
+          BG4: "#696d77"
+          BG5: "#888d94"
+          RED: "#ff657a"
+          ORANGE: "#ff9b5e"
+          YELLOW: "#ffd76d"
+          GREEN: "#bad761"
+          BLUE: "#9cd1bb"
+          AQUA: "#9cd1bb"
+          PURPLE: "#c39ac9"
+          FG: "#eaf2f1"
+      ristretto:
+        light: false
+        colors:
+          BGDIM: "#191515"
+          BG0: "#2c2525"
+          BG1: "#211c1c"
+          BG2: "#403838"
+          BG3: "#5b5353"
+          BG4: "#72696a"
+          BG5: "#948a8b"
+          RED: "#fd6883"
+          ORANGE: "#f38d70"
+          YELLOW: "#f9cc6c"
+          GREEN: "#adda78"
+          BLUE: "#85dacc"
+          AQUA: "#85dacc"
+          PURPLE: "#a8a9eb"
+          FG: "#fff1f3"
+      spectrum:
+        light: false
+        colors:
+          BGDIM: "#131313"
+          BG0: "#222222"
+          BG1: "#191919"
+          BG2: "#363537"
+          BG3: "#525053"
+          BG4: "#69676c"
+          BG5: "#8b888f"
+          RED: "#fc618d"
+          ORANGE: "#fd9353"
+          YELLOW: "#fce566"
+          GREEN: "#7bd88f"
+          BLUE: "#5ad4e6"
+          AQUA: "#5ad4e6"
+          PURPLE: "#948ae3"
+          FG: "#f7f1ff"
+      light:
+        light: true
+        colors:
+          BGDIM: "#d3cdcc"
+          BG0: "#faf4f2"
+          BG1: "#ede7e5"
+          BG2: "#d3cdcc"
+          BG3: "#bfb9ba"
+          BG4: "#a59fa0"
+          BG5: "#918c8e"
+          RED: "#e14775"
+          ORANGE: "#e16032"
+          YELLOW: "#cc7a0a"
+          GREEN: "#269d69"
+          BLUE: "#1c8ca8"
+          AQUA: "#1c8ca8"
+          PURPLE: "#7058be"
+          FG: "#29242a"
+
+
+
 
