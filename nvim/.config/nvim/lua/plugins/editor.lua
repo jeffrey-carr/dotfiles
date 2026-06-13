@@ -3,7 +3,18 @@ return {
 	{
 		"ibhagwan/fzf-lua",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
-		opts = {},
+		opts = {
+			keymap = {
+				builtin = {
+					["<C-d>"] = "preview-page-down",
+					["<C-u>"] = "preview-page-up",
+				},
+				fzf = {
+					["ctrl-d"] = "preview-page-down",
+					["ctrl-u"] = "preview-page-up",
+				},
+			},
+		},
 		keys = {
 			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files" },
 			{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
