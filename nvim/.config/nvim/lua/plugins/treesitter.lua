@@ -57,7 +57,7 @@ return {
 		"nvim-treesitter/nvim-treesitter-context",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		event = "BufRead",
-		opts = { max_lines = 3, trim_scope = "outer" },
+		opts = { max_lines = 1, trim_scope = "outer" },
 	},
 	{
 		"windwp/nvim-ts-autotag",

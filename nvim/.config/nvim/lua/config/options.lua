@@ -9,6 +9,7 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.synmaxcol = 240
 
 -- Determine user environment based on git email
 local git_email = vim.fn.system('git config --get user.email'):gsub('%s+', '')
