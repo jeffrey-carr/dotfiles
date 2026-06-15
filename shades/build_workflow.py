@@ -26,19 +26,6 @@ INFO_PLIST_CONTENT = """<?xml version="1.0" encoding="UTF-8"?>
 				<false/>
 			</dict>
 		</array>
-		<key>33BAEE20-562F-43CF-BCBF-3C7EA092CE40</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>D4D47DE6-4F6B-4197-A6E5-A8F85AF793E9</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 	</dict>
 	<key>createdby</key>
 	<string>Antigravity</string>
@@ -125,27 +112,6 @@ echo -n "$1"</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowiftrue</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>Active theme is now {query}</string>
-				<key>title</key>
-				<string>Shades Theme Changed</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>D4D47DE6-4F6B-4197-A6E5-A8F85AF793E9</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>Fuzzy search and set your Shades themes using Alfred. Use Shift (or Cmd+Y) to preview the color palette and mockup editor.</string>
@@ -162,13 +128,6 @@ echo -n "$1"</string>
 		<dict>
 			<key>xpos</key>
 			<real>290</real>
-			<key>ypos</key>
-			<real>85</real>
-		</dict>
-		<key>D4D47DE6-4F6B-4197-A6E5-A8F85AF793E9</key>
-		<dict>
-			<key>xpos</key>
-			<real>500</real>
 			<key>ypos</key>
 			<real>85</real>
 		</dict>

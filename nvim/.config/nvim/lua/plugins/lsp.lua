@@ -71,16 +71,36 @@ return {
       for server, server_opts in pairs(opts.servers or {}) do
         local config = configs[server]
         if config then
-          server_opts.capabilities = capabilities
+          server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
           config.setup(server_opts)
         end
       end
+
+      -- Customize LSP floating window appearance (borders & padding)
+      vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+        config = config or {}
+        config.border = "rounded"
+        return vim.lsp.handlers.hover(err, result, ctx, config)
+      end
+
+      vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+        config = config or {}
+        config.border = "rounded"
+        return vim.lsp.handlers.signature_help(err, result, ctx, config)
+      end
+
+      -- Add rounded borders to diagnostic float windows as well
+      vim.diagnostic.config({
+        float = { border = "rounded" },
+      })
 
       -- Global mappings.
       vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
       vim.keymap.set('n', 'gr', vim.lsp.buf.references, { desc = 'Go to references' })
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { desc = 'Go to implementation' })
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
+      vim.keymap.set('n', 'K', function()
+        vim.lsp.buf.hover({ border = "rounded" })
+      end, { desc = 'Hover Documentation' })
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
     end
