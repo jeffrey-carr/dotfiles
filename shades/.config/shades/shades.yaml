@@ -543,6 +543,232 @@ themes:
           AQUA: "#98FFFB"
           PURPLE: "#D598FF"
           FG: "#EFEFFD"
+  deepwhite:
+    name: "deepwhite"
+    variants:
+      main:
+        light: true
+        colors:
+          BGDIM: "#FAF2EB"
+          BG0: "#FAF2EB"
+          BG1: "#E6E4DF"
+          BG2: "#CCCBC6"
+          BG3: "#B3B1AD"
+          BG4: "#999791"
+          BG5: "#807E79"
+          RED: "#A60000"
+          ORANGE: "#F27900"
+          YELLOW: "#F2F200"
+          GREEN: "#00A600"
+          BLUE: "#0000A6"
+          AQUA: "#00A6A6"
+          PURPLE: "#6F00A6"
+          FG: "#1A1918"
+  newpaper:
+    name: "newpaper"
+    variants:
+      main:
+        light: true
+        colors:
+          BGDIM: "#EEEEEE"
+          BG0: "#F1F3F2"
+          BG1: "#EEEEEE"
+          BG2: "#E4E4E4"
+          BG3: "#D4D4D4"
+          BG4: "#C3C3C3"
+          BG5: "#878787"
+          RED: "#E14133"
+          ORANGE: "#D75F00"
+          YELLOW: "#C18301"
+          GREEN: "#50A14F"
+          BLUE: "#0072C1"
+          AQUA: "#005F87"
+          PURPLE: "#8700AF"
+          FG: "#2F2A3D"
+      dark:
+        light: false
+        colors:
+          BGDIM: "#363636"
+          BG0: "#303030"
+          BG1: "#363636"
+          BG2: "#3b3b3b"
+          BG3: "#343434"
+          BG4: "#444444"
+          BG5: "#585858"
+          RED: "#DC5761"
+          ORANGE: "#F5824B"
+          YELLOW: "#C6A863"
+          GREEN: "#5FAF5F"
+          BLUE: "#5FAFD7"
+          AQUA: "#72AEB3"
+          PURPLE: "#A274D1"
+          FG: "#C6C8CD"
+  embark:
+    name: "embark"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#100E23"
+          BG0: "#1e1c31"
+          BG1: "#2f2a47"
+          BG2: "#3e3859"
+          BG3: "#585273"
+          BG4: "#585273"
+          BG5: "#585273"
+          RED: "#f48fb1"
+          ORANGE: "#f2b482"
+          YELLOW: "#ffe6b3"
+          GREEN: "#a1efd3"
+          BLUE: "#91ddff"
+          AQUA: "#abf8f7"
+          PURPLE: "#d4bfff"
+          FG: "#cbe3e7"
+  vesper:
+    name: "vesper"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#101010"
+          BG0: "#101010"
+          BG1: "#161616"
+          BG2: "#232323"
+          BG3: "#282828"
+          BG4: "#343434"
+          BG5: "#505050"
+          RED: "#ff8080"
+          ORANGE: "#ffcfa8"
+          YELLOW: "#ffc799"
+          GREEN: "#99ffe4"
+          BLUE: "#a0a0a0"
+          AQUA: "#99ffe4"
+          PURPLE: "#ffcfa8"
+          FG: "#cccccc"
+  moonlight:
+    name: "moonlight"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#1b1e2b"
+          BG0: "#212337"
+          BG1: "#1b1c2b"
+          BG2: "#403c64"
+          BG3: "#414863"
+          BG4: "#515772"
+          BG5: "#596399"
+          RED: "#ff757f"
+          ORANGE: "#f67f81"
+          YELLOW: "#ffc777"
+          GREEN: "#2df4c0"
+          BLUE: "#04d1f9"
+          AQUA: "#b994f1"
+          PURPLE: "#b4a4f4"
+          FG: "#e4f3fa"
+  sherbet:
+    name: "sherbet"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#202329"
+          BG0: "#25282f"
+          BG1: "#1e2027"
+          BG2: "#2c323d"
+          BG3: "#3e3e3e"
+          BG4: "#5f5f5f"
+          BG5: "#808080"
+          RED: "#ffa398"
+          ORANGE: "#ffc48c"
+          YELLOW: "#f9fab4"
+          GREEN: "#d0f7a6"
+          BLUE: "#5ed0d9"
+          AQUA: "#9cdcfe"
+          PURPLE: "#b48ead"
+          FG: "#d4d4d4"
+  zephyr:
+    name: "zephyr"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#1c1f24"
+          BG0: "#262a33"
+          BG1: "#2e323c"
+          BG2: "#3e4556"
+          BG3: "#3f444a"
+          BG4: "#5b6268"
+          BG5: "#73797e"
+          RED: "#e95678"
+          ORANGE: "#ff8700"
+          YELLOW: "#f7bb3b"
+          GREEN: "#afd700"
+          BLUE: "#61afef"
+          AQUA: "#36d0e0"
+          PURPLE: "#c678dd"
+          FG: "#bbc2cf"
+  mellow:
+    name: "mellow"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#131314"
+          BG0: "#161617"
+          BG1: "#18181a"
+          BG2: "#1b1b1d"
+          BG3: "#2a2a2d"
+          BG4: "#3e3e43"
+          BG5: "#57575f"
+          RED: "#f5a191"
+          ORANGE: "#e6b99d"
+          YELLOW: "#e6b99d"
+          GREEN: "#90b99f"
+          BLUE: "#aca1cf"
+          AQUA: "#ea83a5"
+          PURPLE: "#e29eca"
+          FG: "#c9c7cd"
+      light:
+        light: true
+        colors:
+          BGDIM: "#f9f9f9"
+          BG0: "#f7f7f7"
+          BG1: "#e6e6e7"
+          BG2: "#d3d3d4"
+          BG3: "#c1c1c2"
+          BG4: "#afafb1"
+          BG5: "#9d9da0"
+          RED: "#e05439"
+          ORANGE: "#c65c00"
+          YELLOW: "#c65c00"
+          GREEN: "#598c15"
+          BLUE: "#174c97"
+          AQUA: "#d82b65"
+          PURPLE: "#bf386e"
+          FG: "#4d4b65"
+  tokyodark:
+    name: "tokyodark"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#11121d"
+          BG0: "#11121d"
+          BG1: "#1a1b2a"
+          BG2: "#212234"
+          BG3: "#353945"
+          BG4: "#4a5057"
+          BG5: "#282c34"
+          RED: "#ee6d85"
+          ORANGE: "#f6955b"
+          YELLOW: "#d7a65f"
+          GREEN: "#95c561"
+          BLUE: "#7199ee"
+          AQUA: "#38a89d"
+          PURPLE: "#a485dd"
+          FG: "#a0a8cd"
+
 
 
 

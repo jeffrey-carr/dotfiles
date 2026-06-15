@@ -18,9 +18,54 @@ return {
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
+				providers = {
+					snippets = {
+						score_offset = -3,
+						should_show_items = function(ctx)
+							return ctx.trigger.initial_kind ~= "trigger_character"
+						end,
+					},
+				},
 			},
-			signature = { enabled = true },
+			signature = {
+				enabled = true,
+				window = { border = "rounded" },
+			},
+			completion = {
+				documentation = {
+					auto_show = true,
+					window = { border = "rounded" },
+				},
+				menu = {
+					border = "rounded",
+					draw = {
+						treesitter = { "lsp" },
+						columns = {
+							{ "kind_icon" },
+							{ "label", "label_description", gap = 1 },
+							{ "kind" },
+						},
+						components = {
+							label = {
+								width = { fill = true },
+							},
+							label_description = {
+								width = { max = 30 },
+								text = function(ctx)
+									local detail = ctx.label_description or ctx.item.detail
+									if detail and detail ~= "" then
+										return detail
+									end
+									return ""
+								end,
+								highlight = "BlinkCmpLabelDescription",
+							},
+						},
+					},
+				},
+			},
 		},
+		opts_extend = { "sources.default" },
 	},
 
 	-- Autoclose pairs
@@ -66,6 +111,13 @@ return {
 			statuscolumn = { enabled = true },
 			words = { enabled = true },
 			dashboard = { enabled = true },
+			styles = {
+				notification = {
+					wo = {
+						winblend = 0,
+					},
+				},
+			},
 		},
 	},
 
