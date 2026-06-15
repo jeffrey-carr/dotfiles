@@ -237,12 +237,50 @@ return {
 				options = {
 					multilines = {
 						enabled = true,
-						always_show = true,
+						always_show = false,
 					},
 				},
 			})
 			vim.diagnostic.config({ virtual_text = false })
 		end,
+	},
+
+	-- Grug-Far (Search and Replace)
+	{
+		"MagicDuck/grug-far.nvim",
+		opts = { transient = true, openTargetWindow = { preferredLocation = 'prev' } },
+		keys = {
+			{
+				"<leader>gr",
+				function()
+					require("grug-far").open({ prefills = { search = vim.fn.expand("<cword>") } })
+				end,
+				mode = { "n" },
+				desc = "Search & Replace (word)",
+			},
+			{
+				"<leader>gr",
+				function()
+					require("grug-far").with_visual_selection()
+				end,
+				mode = { "v" },
+				desc = "Search & Replace (selection)",
+			},
+			{
+				"<leader>gf",
+				function()
+					require("grug-far").open({ prefills = { paths = vim.fn.expand("%") } })
+				end,
+				desc = "Search & Replace (file)",
+			},
+			{
+				"<leader>gg",
+				function()
+					require("grug-far").open()
+				end,
+				desc = "Search & Replace",
+			},
+		},
 	},
 
 	-- Goto Preview

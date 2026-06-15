@@ -24,12 +24,21 @@ vim.keymap.set("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "<leader>cb", function()
 	Snacks.bufdelete()
 end, { desc = "Close buffer" })
-vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-vim.keymap.set("n", "[B", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer left" })
-vim.keymap.set("n", "]B", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer right" })
-vim.keymap.set("n", "<leader>bp", "<cmd>BufferLinePick<cr>", { desc = "Buffer pick" })
-vim.keymap.set("n", "<leader>bo", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close other buffers" })
+vim.keymap.set("n", "<Tab>",       "<Plug>(cokeline-focus-next)",  { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>",     "<Plug>(cokeline-focus-prev)",  { silent = true, desc = "Prev buffer" })
+vim.keymap.set("n", "[b",          "<Plug>(cokeline-focus-prev)",  { desc = "Prev buffer" })
+vim.keymap.set("n", "]b",          "<Plug>(cokeline-focus-next)",  { desc = "Next buffer" })
+vim.keymap.set("n", "[B",          "<Plug>(cokeline-switch-prev)", { desc = "Move buffer left" })
+vim.keymap.set("n", "]B",          "<Plug>(cokeline-switch-next)", { desc = "Move buffer right" })
+vim.keymap.set("n", "<leader>bp",  "<Plug>(cokeline-pick-focus)",  { desc = "Buffer pick" })
+vim.keymap.set("n", "<leader>bo", function()
+	local cur = vim.api.nvim_get_current_buf()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if buf ~= cur and vim.bo[buf].buflisted then
+			vim.api.nvim_buf_delete(buf, { force = false })
+		end
+	end
+end, { desc = "Close other buffers" })
 
 -- Terminal
 vim.keymap.set({ "n", "t" }, "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle bottom terminal" })
