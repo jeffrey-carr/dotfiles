@@ -14,13 +14,25 @@ return {
 					["ctrl-u"] = "preview-page-up",
 				},
 			},
+			files = {
+				fd_opts = "--color=never --type f --hidden --follow --exclude .git --exclude 'mocks' --exclude 'mock_*'",
+			},
+			grep = {
+				rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '!mocks/**' --glob '!mock_*' -e",
+			},
+			lsp = {
+				jump1 = true,
+				regex_filter = function(item)
+					return not item.filename:match("/mocks/") and not item.filename:match("/mock_")
+				end,
+			},
 		},
 		keys = {
 			{ "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files" },
 			{ "<leader>fg", "<cmd>FzfLua live_grep<cr>", desc = "Live Grep" },
 			{ "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
 			{ "<leader>fh", "<cmd>FzfLua help_tags<cr>", desc = "Help Tags" },
-			{ "<leader>fr", "<cmd>FzfLua lsp_references<cr>", desc = "Find References" },
+			{ "<leader>fr", function() require("fzf-lua").lsp_references({ includeDeclaration = false }) end, desc = "Find References" },
 			{ "<leader>fd", "<cmd>FzfLua lsp_definitions<cr>", desc = "Find Definitions" },
 			{ "<leader>fi", "<cmd>FzfLua lsp_implementations<cr>", desc = "Find Implementation" },
 			{ "<leader>fs", "<cmd>FzfLua lsp_document_symbols<cr>", desc = "Find Symbols" },
@@ -75,7 +87,10 @@ return {
 				follow_current_file = { enabled = true },
 			},
 			window = {
-				width = 40,
+				width = 55,
+				popup = {
+					size = { width = "80%" },
+				},
 				mappings = {
 					["<space>"] = "none",
 					["<Tab>"] = "next_source",
@@ -163,7 +178,7 @@ return {
 	-- Todo Comments (Actionable comment highlighting)
 	{
 		"folke/todo-comments.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		dependencies = { "nvim-lua/plenary.nvim", "ibhagwan/fzf-lua" },
 		event = "BufReadPost",
 		opts = {},
 		keys = {
@@ -172,7 +187,7 @@ return {
 				"<leader>fT",
 				function()
 					require("todo-comments.fzf").todo({
-						search_dirs = { vim.fn.expand("%:p") },
+						filename = vim.fn.expand("%:p"),
 					})
 				end,
 				desc = "Find Todos (Buffer)",

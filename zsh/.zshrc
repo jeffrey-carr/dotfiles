@@ -64,6 +64,13 @@ function zle-line-init { echo -ne '\e[6 q' }  # start each prompt in insert mode
 zle -N zle-line-init
 
 bindkey '^?' backward-delete-char  # fix backspace in vi mode
+
+function vi-yank-to-clipboard {
+    CUTBUFFER=$BUFFER
+    echo -n "$BUFFER" | pbcopy
+}
+zle -N vi-yank-to-clipboard
+bindkey -M viopp 'y' vi-yank-to-clipboard
 export PAGER="less"
 export LANG="en_US.UTF-8"
 

@@ -606,13 +606,16 @@ def main():
         pretty_variant = format_name(variant)
         
         title = f"{pretty_theme} ({pretty_variant})"
-        subtitle = f"Press Shift/Cmd+Y to Preview • Enter to Apply {theme_id}"
-        
-        match_str = f"{theme_name} {pretty_theme} {variant} {pretty_variant}"
+
         preview_path = os.path.join(preview_dir, f"{theme_name}-{variant}.html")
         icon_path = os.path.join(preview_dir, f"icon-{theme_name}-{variant}.png")
-        
+
         variant_data = themes_data.get(theme_name, {}).get("variants", {}).get(variant, {})
+        is_light = variant_data.get("light", False)
+        mode_tag = "light" if is_light else "dark"
+        mode_label = "☀ Light" if is_light else "● Dark"
+        match_str = f"{theme_name} {pretty_theme} {variant} {pretty_variant} {mode_tag}"
+        subtitle = f"{mode_label} • Shift/Cmd+Y to Preview • Enter to Apply {theme_id}"
         if variant_data:
             try:
                 # Always write HTML to keep it up to date
