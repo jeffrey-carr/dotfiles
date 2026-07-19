@@ -66,6 +66,8 @@ return {
   { "nvimdev/zephyr-nvim", name = "zephyr", lazy = true },
   { "mellow-theme/mellow.nvim", name = "mellow", lazy = true },
   { "tiagovla/tokyodark.nvim", name = "tokyodark", lazy = true },
+  { "olimorris/onedarkpro.nvim", name = "onedarkpro", lazy = true },
+
 
   {
     "brianmargolis/shades.nvim",
@@ -95,6 +97,10 @@ return {
         elseif theme_name == "catppuccin" then
           if variant_name == "latte" then
             vim.cmd.colorscheme "catppuccin-latte"
+          elseif variant_name == "frappe" then
+            vim.cmd.colorscheme "catppuccin-frappe"
+          elseif variant_name == "macchiato" then
+            vim.cmd.colorscheme "catppuccin-macchiato"
           elseif variant_name == "mocha" then
             vim.cmd.colorscheme "catppuccin-mocha"
           else
@@ -163,6 +169,24 @@ return {
           vim.cmd.colorscheme "mellow"
         elseif theme_name == "tokyodark" then
           vim.cmd.colorscheme "tokyodark"
+        elseif theme_name == "kanagawa" then
+          if variant_name == "dragon" then
+            vim.cmd.colorscheme "kanagawa-dragon"
+          elseif variant_name == "lotus" then
+            vim.cmd.colorscheme "kanagawa-lotus"
+          else
+            vim.cmd.colorscheme "kanagawa-wave"
+          end
+        elseif theme_name == "onedarkpro" then
+          if variant_name == "onelight" then
+            vim.cmd.colorscheme "onelight"
+          elseif variant_name == "onedark_vivid" then
+            vim.cmd.colorscheme "onedark_vivid"
+          elseif variant_name == "onedark_dark" then
+            vim.cmd.colorscheme "onedark_dark"
+          else
+            vim.cmd.colorscheme "onedark"
+          end
         else
           pcall(vim.cmd.colorscheme, theme_name)
         end
