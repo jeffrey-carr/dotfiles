@@ -59,6 +59,7 @@ return {
   { "maxmx03/fluoromachine.nvim", name = "fluoromachine", lazy = true },
   { "Verf/deepwhite.nvim", name = "deepwhite", lazy = true },
   { "yorik1984/newpaper.nvim", name = "newpaper", lazy = true },
+  { "yorickpeterse/vim-paper", name = "vim-paper", lazy = true },
   { "embark-theme/vim", name = "embark", lazy = true },
   { "datsfilipe/vesper.nvim", name = "vesper", lazy = true },
   { "shaunsingh/moonlight.nvim", name = "moonlight", lazy = true },
@@ -82,7 +83,7 @@ return {
         local variant_name = parts[2] or ""
 
         -- Determine background style
-        local is_light = variant_name:find("light") or variant_name:find("dawn") or variant_name:find("latte") or theme_name == "deepwhite" or theme_name == "newpaper"
+        local is_light = variant_name:find("light") or variant_name:find("dawn") or variant_name:find("latte") or theme_name == "deepwhite" or theme_name == "newpaper" or theme_name == "paper"
         vim.opt.background = is_light and "light" or "dark"
 
         -- Apply colorscheme
@@ -154,6 +155,8 @@ return {
           local style_val = (variant_name == "dark") and "dark" or "light"
           require("newpaper").setup({ style = style_val })
           vim.cmd.colorscheme "newpaper"
+        elseif theme_name == "paper" then
+          vim.cmd.colorscheme "paper"
         elseif theme_name == "embark" then
           vim.cmd.colorscheme "embark"
         elseif theme_name == "vesper" then

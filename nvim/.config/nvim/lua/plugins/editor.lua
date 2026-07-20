@@ -129,6 +129,9 @@ return {
 				search = {
 					enabled = false, -- Set to true if you want labels on regular `/` searches
 				},
+				char = {
+					jump_labels = true, -- show labels on f/F/t/T targets so you can jump straight to the right one
+				},
 			},
 		},
 		keys = {
@@ -237,7 +240,73 @@ return {
 	{
 		"Eandrju/cellular-automaton.nvim",
 		keys = {
-			{ "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Make it rain" },
+			{ "<leader>gu", "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Make it rain" },
+			{ "<leader>go", "<cmd>CellularAutomaton game_of_life<CR>", desc = "Game of life" },
+			{ "<leader>gs", "<cmd>CellularAutomaton scramble<CR>", desc = "Scramble" },
+			{ "<leader>gl", "<cmd>CellularAutomaton langtons_ant<CR>", desc = "Langton's ant" },
+			{ "<leader>gb", "<cmd>CellularAutomaton fireworks<CR>", desc = "Fireworks" },
+		},
+		config = function()
+			local automaton = require("cellular-automaton")
+			automaton.register_animation(require("automata.langtons_ant"))
+			automaton.register_animation(require("automata.fireworks"))
+		end,
+	},
+
+	-- Typewriter (sound effects while typing)
+	{
+		"v1nh1shungry/typewriter.nvim",
+		keys = {
+			{
+				"<leader>gt",
+				function()
+					require("typewriter").toggle()
+				end,
+				desc = "Toggle typewriter sounds",
+			},
+		},
+		opts = {
+			enabled = false, -- lazy-loaded on first <leader>gt press, which then toggles it on
+			libs = {
+				sdl = "/opt/homebrew/lib/libSDL2.dylib",
+				mixer = "/opt/homebrew/lib/libSDL2_mixer.dylib",
+			},
+		},
+	},
+
+	-- Duck (waddles around your editor)
+	{
+		"tamton-aquib/duck.nvim",
+		keys = {
+			{
+				"<leader>dd",
+				function()
+					require("duck").hatch()
+				end,
+				desc = "Hatch a duck",
+			},
+			{
+				"<leader>dk",
+				function()
+					require("duck").cook()
+				end,
+				desc = "Cook last duck",
+			},
+			{
+				"<leader>da",
+				function()
+					require("duck").cook_all()
+				end,
+				desc = "Cook all ducks",
+			},
+		},
+	},
+
+	-- Undotree
+	{
+		"mbbill/undotree",
+		keys = {
+			{ "<leader>u", "<cmd>UndotreeToggle<CR>", desc = "Toggle undotree" },
 		},
 	},
 
