@@ -93,7 +93,9 @@ return {
 			-- Automatically adds pairs
 			require("mini.pairs").setup()
 			-- Better textobjects (e.g. 'va(' to select around parens)
-			require("mini.ai").setup()
+			require("mini.ai").setup({
+				n_lines = 500,
+			})
 			-- File explorer alternative/companion
 			require("mini.files").setup()
 		end,

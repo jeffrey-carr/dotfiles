@@ -53,7 +53,11 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("gopher").setup()
+      require("gopher").setup({
+        gotag = {
+          transform = "camelcase",
+        },
+      })
     end,
     keys = {
       { "<leader>gsj", "<cmd>GoTagAdd json<cr>", desc = "Add json struct tags" },

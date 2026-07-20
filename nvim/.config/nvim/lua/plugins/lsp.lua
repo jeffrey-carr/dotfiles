@@ -80,7 +80,40 @@ return {
       vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
         config = config or {}
         config.border = "rounded"
-        return vim.lsp.handlers.hover(err, result, ctx, config)
+        local float_bufnr, float_winid = vim.lsp.handlers.hover(err, result, ctx, config)
+
+        if float_bufnr and vim.api.nvim_buf_is_valid(float_bufnr) then
+          local orig_bufnr = ctx.bufnr
+          local orig_winnr = vim.fn.bufwinid(orig_bufnr)
+
+          local function close_and_run(fn)
+            return function()
+              if vim.api.nvim_win_is_valid(float_winid) then
+                vim.api.nvim_win_close(float_winid, true)
+              end
+              if orig_winnr ~= -1 and vim.api.nvim_win_is_valid(orig_winnr) then
+                vim.api.nvim_set_current_win(orig_winnr)
+              end
+              fn()
+            end
+          end
+
+          local opts = { buffer = float_bufnr, silent = true }
+          vim.keymap.set('n', 'gd', close_and_run(vim.lsp.buf.definition),
+            vim.tbl_extend('force', opts, { desc = 'Go to definition' }))
+          vim.keymap.set('n', 'gr', close_and_run(vim.lsp.buf.references),
+            vim.tbl_extend('force', opts, { desc = 'Go to references' }))
+          vim.keymap.set('n', 'gi', close_and_run(vim.lsp.buf.implementation),
+            vim.tbl_extend('force', opts, { desc = 'Go to implementation' }))
+          vim.keymap.set('n', '<leader>fd', close_and_run(function() vim.cmd('FzfLua lsp_definitions') end),
+            vim.tbl_extend('force', opts, { desc = 'Find definitions' }))
+          vim.keymap.set('n', '<leader>fr', close_and_run(function() vim.cmd('FzfLua lsp_references') end),
+            vim.tbl_extend('force', opts, { desc = 'Find references' }))
+          vim.keymap.set('n', '<leader>fi', close_and_run(function() vim.cmd('FzfLua lsp_implementations') end),
+            vim.tbl_extend('force', opts, { desc = 'Find implementations' }))
+        end
+
+        return float_bufnr, float_winid
       end
 
       vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)

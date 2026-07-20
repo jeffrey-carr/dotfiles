@@ -598,7 +598,7 @@ themes:
           GREEN: "#2A8A2A"
           BLUE: "#1840A6"
           AQUA: "#007878"
-          PURPLE: "#6F18A0"
+          PURPLE: "#286888"
           FG: "#1A1918"
   newpaper:
     name: "newpaper"
@@ -936,3 +936,26 @@ themes:
           AQUA: "#2bbac5"
           PURPLE: "#d55fde"
           FG: "#abb2bf"
+  paper:
+    name: "paper"
+    variants:
+      main:
+        light: true
+        colors:
+          BGDIM: "#e8e4d0"
+          BG0: "#f2eede"
+          BG1: "#ece8d8"
+          BG2: "#d8d5c7"
+          BG3: "#bfbcaf"
+          BG4: "#aaaaaa"
+          BG5: "#777777"
+          RED: "#cc3e28"
+          ORANGE: "#a55000"
+          YELLOW: "#b58900"
+          GREEN: "#216609"
+          BLUE: "#1e6fcc"
+          AQUA: "#158c86"
+          PURPLE: "#5c21a5"
+          FG: "#000000"
+
+

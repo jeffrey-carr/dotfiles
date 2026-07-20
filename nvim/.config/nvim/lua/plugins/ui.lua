@@ -151,14 +151,5 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		opts = {},
 	},
-
-	-- Code Snapshots
-	{
-		"mistricky/codesnap.nvim",
-		build = "make",
-		keys = {
-			{ "<leader>cc", "<cmd>CodeSnap<cr>", mode = "x", desc = "Save selected code snapshot" },
-		},
-	},
 }
 
