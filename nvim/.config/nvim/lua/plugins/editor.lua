@@ -131,6 +131,10 @@ return {
 				},
 				char = {
 					jump_labels = true, -- show labels on f/F/t/T targets so you can jump straight to the right one
+					multi_line = false, -- only highlight/label matches on the current line, not the whole window
+					jump = {
+						autojump = true, -- if there's only one match on the line, jump immediately (like native f/t)
+					},
 				},
 			},
 		},

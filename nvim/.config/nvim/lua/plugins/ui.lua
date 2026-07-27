@@ -133,23 +133,42 @@ return {
 		},
 	},
 
-	-- Winbar breadcrumbs (current scope via LSP)
+	-- Winbar breadcrumbs (current scope via LSP/Treesitter, click-navigable)
 	{
-		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		version = "*",
+		"Bekaboo/dropbar.nvim",
 		dependencies = {
-			"SmiteshP/nvim-navic",
 			"nvim-tree/nvim-web-devicons",
 		},
-		opts = {},
+		opts = {
+			icons = {
+				enable = true,
+			},
+			bar = {
+				padding = { left = 1, right = 1 },
+			},
+		},
+		config = function(_, opts)
+			require("dropbar").setup(opts)
+			local dropbar_api = require("dropbar.api")
+			vim.keymap.set("n", "<leader>;", dropbar_api.pick, { desc = "Pick symbol in breadcrumbs" })
+			vim.keymap.set("n", "[;", dropbar_api.goto_context_start, { desc = "Go to start of current context" })
+			vim.keymap.set("n", "];", dropbar_api.select_next_context, { desc = "Select next breadcrumb context" })
+		end,
 	},
 
 	-- Markdown Preview
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-		opts = {},
+		opts = {
+			checkbox = {
+				custom = {
+					cancelled = { raw = "[~]", rendered = "󰜺 ", highlight = "DiagnosticError", scope_highlight = "Comment" },
+					important = { raw = "[!]", rendered = "󰀦 ", highlight = "DiagnosticWarn" },
+					forwarded = { raw = "[>]", rendered = "󰑃 ", highlight = "RenderMarkdownTodo" },
+				},
+			},
+		},
 	},
 }
 
