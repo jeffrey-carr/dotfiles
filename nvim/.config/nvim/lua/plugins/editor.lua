@@ -333,6 +333,28 @@ return {
 		end,
 	},
 
+	-- Highlight Animations (yank/paste/undo/redo/search)
+	{
+		"rachartier/tiny-glimmer.nvim",
+		event = "VeryLazy",
+		priority = 10,
+		keys = {
+			{ "n" },
+			{ "N" },
+		},
+		config = function()
+			require("tiny-glimmer").setup({
+				overwrite = {
+					yank = { enabled = true },
+					paste = { enabled = true },
+					undo = { enabled = true },
+					redo = { enabled = true },
+					search = { enabled = true },
+				},
+			})
+		end,
+	},
+
 	-- Grug-Far (Search and Replace)
 	{
 		"MagicDuck/grug-far.nvim",
