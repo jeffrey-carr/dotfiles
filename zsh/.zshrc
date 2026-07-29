@@ -152,8 +152,12 @@ setopt EXTENDED_GLOB
 # -----------------------------------------------------------------------------
 # 🔐 7. SECRETS
 # -----------------------------------------------------------------------------
-if [ -f ~/.env.secrets ]; then
-  source ~/.env.secrets
+if [ -d ~/.config/zsh/secrets ]; then
+  for secret_file in ~/.config/zsh/secrets/*(N.); do
+    if [[ "$(basename "$secret_file")" != .* ]]; then
+      source "$secret_file"
+    fi
+  done
 fi
 
 # -----------------------------------------------------------------------------
