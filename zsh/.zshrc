@@ -67,7 +67,11 @@ bindkey '^?' backward-delete-char  # fix backspace in vi mode
 
 function vi-yank-to-clipboard {
     CUTBUFFER=$BUFFER
-    echo -n "$BUFFER" | pbcopy
+    if command -v pbcopy >/dev/null 2>&1; then
+        echo -n "$BUFFER" | pbcopy
+    elif command -v xclip >/dev/null 2>&1; then
+        echo -n "$BUFFER" | xclip -selection clipboard
+    fi
 }
 zle -N vi-yank-to-clipboard
 bindkey -M viopp 'y' vi-yank-to-clipboard
