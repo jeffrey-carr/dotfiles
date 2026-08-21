@@ -26,7 +26,11 @@ sudo apt install -y \
     xclip \
     curl \
     build-essential \
-    python3
+    python3 \
+    python3-venv \
+    nodejs \
+    npm \
+    unzip
 
 # Fix fd-find symlink if needed (Ubuntu calls it fdfind, some plugins expect fd)
 if ! command -v fd &> /dev/null && command -v fdfind &> /dev/null; then
