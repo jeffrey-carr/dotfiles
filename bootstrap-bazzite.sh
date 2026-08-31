@@ -21,7 +21,6 @@ brew bundle --file="$DOTFILES_DIR/Brewfile.linux"
 
 # 2. Install GUI Apps via Flatpak & ujust
 echo "📦 Installing GUI dependencies..."
-flatpak install -y flathub org.wezfurlong.wezterm || true
 flatpak install -y flathub com.mitchellh.ghostty || true
 echo "📦 Installing 1Password via Bazzite ujust command..."
 ujust install-1password || true

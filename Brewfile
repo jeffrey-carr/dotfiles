@@ -14,7 +14,6 @@ brew "lazygit"
 brew "git-delta"
 
 # Casks (GUI Applications)
-cask "wezterm"
 cask "ghostty"
 cask "alfred"
 cask "1password-cli"
