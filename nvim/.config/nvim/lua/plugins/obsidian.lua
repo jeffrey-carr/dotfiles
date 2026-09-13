@@ -30,6 +30,12 @@ return {
       attachments = {
         img_folder = "images",
       },
+      follow_url_func = function(url)
+        vim.ui.open(url)
+      end,
+      follow_img_func = function(img)
+        vim.ui.open(img)
+      end,
       -- render-markdown.nvim already handles conceal/highlighting
       ui = {
         enable = false,

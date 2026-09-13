@@ -136,6 +136,19 @@ return {
       end, { desc = 'Hover Documentation' })
       vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
+
+      -- Enable inlay hints for any client that supports them (e.g. gopls, vtsls, pyright)
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if client and client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          end
+        end,
+      })
+      vim.keymap.set('n', '<leader>uh', function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+      end, { desc = 'Toggle inlay hints' })
     end
   }
 }

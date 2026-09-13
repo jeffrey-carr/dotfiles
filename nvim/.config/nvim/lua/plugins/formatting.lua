@@ -28,10 +28,18 @@ return {
         markdown = { "prettierd", "prettier", stop_after_first = true },
         json = { "prettierd", "prettier", stop_after_first = true },
       },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      format_on_save = function(bufnr)
+        -- Python has no shared formatter/lint config across the team, so a whole-buffer
+        -- format-on-save here would rewrite teammates' code under a different style.
+        -- Skip it; lua/plugins/lang/python.lua formats only the lines actually changed.
+        if vim.bo[bufnr].filetype == "python" then
+          return nil
+        end
+        return {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        }
+      end,
     },
   },
 }
