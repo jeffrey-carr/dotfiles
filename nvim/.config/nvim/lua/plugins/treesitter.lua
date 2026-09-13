@@ -21,6 +21,7 @@ return {
 				"vimdoc",
 				"query",
 				"go",
+				"python",
 				"typescript",
 				"javascript",
 				"html",
