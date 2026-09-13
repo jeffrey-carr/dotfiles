@@ -85,18 +85,6 @@ return {
 		opts = {},
 	},
 
-	-- Modern Notifications
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			local notify = require("notify")
-			notify.setup({
-				background_colour = "#000000",
-			})
-			vim.notify = notify
-		end,
-	},
-
 	-- Smooth cursor animations
 	{
 		"sphamba/smear-cursor.nvim",
