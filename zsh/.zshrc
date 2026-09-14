@@ -104,7 +104,7 @@ cache_eval "starship_init" "starship init zsh" "starship"
 # Zsh Auto-suggestions (Sourced before syntax highlighting)
 if [[ -f "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
   source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  bindkey '^L' autosuggest-accept
+  bindkey '^@' autosuggest-accept
 fi
 
 # -----------------------------------------------------------------------------
