@@ -14,6 +14,32 @@ return {
     opts = {
       servers = {
         gopls = {
+          -- Prevent gopls from attaching to diffview:// and fugitive:// buffers
+          single_file_support = false,
+          root_dir = function(fname)
+            if fname:match("^diffview://") or fname:match("^fugitive://") then
+              return nil
+            end
+            local util = require("lspconfig.util")
+            return util.root_pattern("go.work", "go.mod", ".git")(fname)
+          end,
+          on_init = function(client)
+            local original_notify = client.notify
+            client.notify = function(method, params)
+              if params and params.textDocument and params.textDocument.uri and params.textDocument.uri:match("^diffview://") then
+                return true
+              end
+              return original_notify(method, params)
+            end
+
+            local original_request = client.request
+            client.request = function(method, params, handler, bufnr)
+              if params and params.textDocument and params.textDocument.uri and params.textDocument.uri:match("^diffview://") then
+                return true, 1
+              end
+              return original_request(method, params, handler, bufnr)
+            end
+          end,
           settings = {
             gopls = {
               completeUnimported = true,

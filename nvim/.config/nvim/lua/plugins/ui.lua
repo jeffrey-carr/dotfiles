@@ -158,5 +158,72 @@ return {
 			},
 		},
 	},
+
+	-- Line Justice (Dual Absolute & Relative Line Numbers)
+	{
+		"zaakiy/line-justice.nvim",
+		dependencies = {
+			"luukvbaal/statuscol.nvim",
+			"lewis6991/gitsigns.nvim",
+		},
+		lazy = false,
+		config = function()
+			local lj = require("line-justice")
+			lj.setup()
+
+			local builtin = require("statuscol.builtin")
+			require("statuscol").setup({
+				relculright = true,
+				segments = {
+					{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+					{
+						sign = { namespace = { "gitsigns" }, maxwidth = 1, colwidth = 1, auto = true },
+						click = "v:lua.ScSa",
+					},
+					{ sign = { namespace = { "diagnostic/signs" }, maxwidth = 2, auto = true }, click = "v:lua.ScSa" },
+					{
+						sign = { name = { ".*" }, maxwidth = 2, colwidth = 1, auto = true, wrap = true },
+						click = "v:lua.ScSa",
+					},
+					{ text = { lj.segment }, click = "v:lua.ScLa" },
+				},
+			})
+		end,
+	},
+
+	-- Code Biscuits (Treesitter Context Annotations)
+	{
+		"code-biscuits/nvim-biscuits",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		event = "BufRead",
+		config = function()
+			require("nvim-biscuits").setup({
+				cursor_line_only = true,
+				default_config = {
+					max_length = 60, -- Max characters for the virtual text
+					min_distance = 5, -- Only show biscuit if the block is at least this many lines long
+					prefix_string = " 󰊠 ", -- Adds a nice icon before the biscuit text
+					show_on_start = true,
+				},
+			})
+			-- Turn down opacity by linking to the much dimmer 'LspInlayHint' or 'NonText' highlight group
+			vim.api.nvim_set_hl(0, "BiscuitColor", { link = "LspInlayHint" })
+
+			-- PATCH: Fix nvim-biscuits showing the wrong line for Go functions by ignoring internal blocks
+			local langs = require("nvim-biscuits.languages")
+			local orig_should_decorate = langs.should_decorate
+			langs.should_decorate = function(language_name, ts_node, text, bufnr)
+				if language_name == "go" then
+					local type = ts_node:type()
+					if type == "block" or type == "statement_list" then
+						return false
+					end
+				end
+				return orig_should_decorate(language_name, ts_node, text, bufnr)
+			end
+		end,
+	},
 }
 

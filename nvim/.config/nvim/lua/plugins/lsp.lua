@@ -134,7 +134,7 @@ return {
       vim.keymap.set('n', 'K', function()
         vim.lsp.buf.hover({ border = "rounded" })
       end, { desc = 'Hover Documentation' })
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+      vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
       -- Enable inlay hints for any client that supports them (e.g. gopls, vtsls, pyright)

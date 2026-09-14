@@ -3,6 +3,11 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
+		keys = {
+			{ "<leader>gb", "<cmd>Gitsigns blame_line<cr>", desc = "Git Blame Line" },
+			{ "<leader>gp", "<cmd>Gitsigns preview_hunk<cr>", desc = "Git Preview Hunk" },
+			{ "<leader>gh", "<cmd>Gitsigns diffthis<cr>", desc = "Git Diff Split (Current File)" },
+		},
 		opts = {
 			signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 			numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -12,11 +17,16 @@ return {
 				follow_files = true,
 			},
 			attach_to_untracked = true,
-			current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+
+			-- OPTIMIZATIONS:
+			current_line_blame = true,
+			update_debounce = 250, -- Increased from 100 to reduce update frequency while scrolling
+			max_file_length = 10000, -- Disable on files > 10,000 lines
+
 			current_line_blame_opts = {
 				virt_text = true,
 				virt_text_pos = "eol",
-				delay = 250,
+				delay = 500,
 				ignore_whitespace = false,
 			},
 			preview_config = {
@@ -45,6 +55,16 @@ return {
 		},
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
+
+	-- Diffview (Full UI diff viewer)
+	{
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+		keys = {
+			{ "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Git Diffview (Project)" },
+			{ "<leader>gD", "<cmd>DiffviewClose<cr>", desc = "Git Diffview Close" },
 		},
 	},
 }

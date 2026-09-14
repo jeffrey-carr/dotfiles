@@ -31,6 +31,7 @@ return {
 				"markdown",
 				"markdown_inline",
 				"json",
+				"http",
 			}
 
 			-- Ensure parsers are installed

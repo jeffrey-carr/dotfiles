@@ -72,6 +72,15 @@ return {
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
+		opts = {
+			map_bs = false,
+		},
+	},
+
+	-- Smart Backspace
+	{
+		"qwavies/smart-backspace.nvim",
+		event = "InsertEnter",
 		config = true,
 	},
 
