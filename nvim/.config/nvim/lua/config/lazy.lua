@@ -16,9 +16,12 @@ require("lazy").setup({
     { import = "plugins.lang" },
   },
   defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
+    -- Plugins load during startup unless their spec opts into lazy loading.
     lazy = false,
   },
+  -- No plugin here needs LuaRocks; keep lazy.nvim from bootstrapping hererocks
+  -- when some plugin happens to ship a rockspec.
+  rocks = { enabled = false },
   checker = { enabled = false }, -- automatically check for plugin updates
   change_detection = {
     enabled = false,

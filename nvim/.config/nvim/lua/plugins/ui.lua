@@ -89,6 +89,39 @@ return {
 	{
 		"sphamba/smear-cursor.nvim",
 		opts = {},
+		config = function(_, opts)
+			require("smear_cursor").setup(opts)
+
+			-- The animation can't keep up with rapid WinScrolled events during fast
+			-- scrolling, which shows up as the cursor lagging/jumping around the
+			-- screen. Turn it off for the duration of a scroll burst (debounced) so
+			-- it only animates normal cursor movement, not scrolling.
+			local smear = require("smear_cursor")
+			local scroll_timer
+
+			vim.api.nvim_create_autocmd("WinScrolled", {
+				group = vim.api.nvim_create_augroup("SmearCursorScrollGuard", { clear = true }),
+				callback = function()
+					smear.enabled = false
+					if scroll_timer then
+						scroll_timer:stop()
+						scroll_timer:close()
+					end
+					scroll_timer = vim.uv.new_timer()
+					scroll_timer:start(
+						150,
+						0,
+						vim.schedule_wrap(function()
+							smear.enabled = true
+							if scroll_timer then
+								scroll_timer:close()
+								scroll_timer = nil
+							end
+						end)
+					)
+				end,
+			})
+		end,
 	},
 
 
@@ -111,7 +144,7 @@ return {
 				lualine_c = {
 					{ "filename", path = 1, symbols = { modified = "  ", readonly = " 󰌾 ", unnamed = "  " } },
 				},
-				lualine_x = { { "filetype" } },
+				lualine_x = { "%S", { "filetype" } },
 				lualine_y = { "progress" },
 				lualine_z = {
 					"location",
@@ -215,6 +248,10 @@ return {
 			local langs = require("nvim-biscuits.languages")
 			local orig_should_decorate = langs.should_decorate
 			langs.should_decorate = function(language_name, ts_node, text, bufnr)
+				-- Mostly prose, not code -- the end-of-block hints aren't useful there.
+				if vim.bo[bufnr].filetype == "markdown" then
+					return false
+				end
 				if language_name == "go" then
 					local type = ts_node:type()
 					if type == "block" or type == "statement_list" then
@@ -222,6 +259,34 @@ return {
 					end
 				end
 				return orig_should_decorate(language_name, ts_node, text, bufnr)
+			end
+
+			-- PATCH: with cursor_line_only, nvim-biscuits runs its (treesitter-heavy)
+			-- decorate_nodes synchronously on every single CursorMoved/CursorMovedI
+			-- event, unthrottled. Holding a movement key floods it with calls faster
+			-- than it can keep up, backing up the input queue (shows up as lag and
+			-- the cursor still moving after you let go of the key). Debounce it so
+			-- it only actually renders ~80ms after the cursor settles.
+			local biscuits = require("nvim-biscuits")
+			local orig_decorate_nodes = biscuits.decorate_nodes
+			local debounce_timer
+			biscuits.decorate_nodes = function(bufnr, parser_lang)
+				if debounce_timer then
+					debounce_timer:stop()
+					debounce_timer:close()
+				end
+				debounce_timer = vim.uv.new_timer()
+				debounce_timer:start(
+					80,
+					0,
+					vim.schedule_wrap(function()
+						orig_decorate_nodes(bufnr, parser_lang)
+						if debounce_timer then
+							debounce_timer:close()
+							debounce_timer = nil
+						end
+					end)
+				)
 			end
 		end,
 	},

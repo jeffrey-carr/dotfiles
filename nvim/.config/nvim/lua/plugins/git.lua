@@ -19,7 +19,7 @@ return {
 			attach_to_untracked = true,
 
 			-- OPTIMIZATIONS:
-			current_line_blame = true,
+			current_line_blame = false,
 			update_debounce = 250, -- Increased from 100 to reduce update frequency while scrolling
 			max_file_length = 10000, -- Disable on files > 10,000 lines
 

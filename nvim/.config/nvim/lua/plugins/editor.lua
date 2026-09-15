@@ -75,6 +75,10 @@ return {
 					event = "neo_tree_buffer_enter",
 					handler = function()
 						vim.opt_local.relativenumber = true
+						-- line-justice's custom statuscolumn deliberately blanks nofile
+						-- buffers (neo-tree included) -- fall back to the native gutter
+						-- here so relativenumber above actually shows something.
+						vim.opt_local.statuscolumn = ""
 					end,
 				},
 			},
@@ -248,7 +252,7 @@ return {
 			{ "<leader>go", "<cmd>CellularAutomaton game_of_life<CR>", desc = "Game of life" },
 			{ "<leader>gs", "<cmd>CellularAutomaton scramble<CR>", desc = "Scramble" },
 			{ "<leader>gl", "<cmd>CellularAutomaton langtons_ant<CR>", desc = "Langton's ant" },
-			{ "<leader>gb", "<cmd>CellularAutomaton fireworks<CR>", desc = "Fireworks" },
+			{ "<leader>gw", "<cmd>CellularAutomaton fireworks<CR>", desc = "Fireworks" },
 		},
 		config = function()
 			local automaton = require("cellular-automaton")

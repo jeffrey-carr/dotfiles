@@ -18,6 +18,12 @@ return {
 			},
 			sources = {
 				default = { "lsp", "path", "snippets", "buffer" },
+				-- Mostly prose there -- drop lsp (marksman), buffer word-completion, and
+				-- snippets so the menu doesn't pop up on nearly every word typed. Path
+				-- completion stays for image/link paths.
+				per_filetype = {
+					markdown = { "path" },
+				},
 				providers = {
 					snippets = {
 						score_offset = -3,
