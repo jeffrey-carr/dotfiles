@@ -25,6 +25,11 @@ return {
 					markdown = { "path" },
 				},
 				providers = {
+					buffer = {
+						enabled = function()
+							return not require("config.bigbuf").is_large()
+						end,
+					},
 					snippets = {
 						score_offset = -3,
 						should_show_items = function(ctx)

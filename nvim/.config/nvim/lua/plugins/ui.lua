@@ -95,9 +95,22 @@ return {
 			-- The animation can't keep up with rapid WinScrolled events during fast
 			-- scrolling, which shows up as the cursor lagging/jumping around the
 			-- screen. Turn it off for the duration of a scroll burst (debounced) so
-			-- it only animates normal cursor movement, not scrolling.
+			-- it only animates normal cursor movement, not scrolling. Also disable
+			-- it entirely while a large buffer is focused, since it otherwise
+			-- animates every cursor advance during insert-mode typing too.
 			local smear = require("smear_cursor")
 			local scroll_timer
+
+			local function refresh_enabled(bufnr)
+				smear.enabled = not require("config.bigbuf").is_large(bufnr)
+			end
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				group = vim.api.nvim_create_augroup("SmearCursorBigBufGuard", { clear = true }),
+				callback = function(args)
+					refresh_enabled(args.buf)
+				end,
+			})
 
 			vim.api.nvim_create_autocmd("WinScrolled", {
 				group = vim.api.nvim_create_augroup("SmearCursorScrollGuard", { clear = true }),
@@ -112,7 +125,7 @@ return {
 						150,
 						0,
 						vim.schedule_wrap(function()
-							smear.enabled = true
+							refresh_enabled(vim.api.nvim_get_current_buf())
 							if scroll_timer then
 								scroll_timer:close()
 								scroll_timer = nil
@@ -169,6 +182,18 @@ return {
 			},
 		},
 		config = function(_, opts)
+			-- Winbar breadcrumbs recompute via LSP/treesitter on every cursor move
+			-- through scopes, which adds up on large buffers. Wrap the plugin's own
+			-- default enable check (rather than replacing it) so its existing
+			-- validity/filetype checks still apply.
+			local dropbar_configs = require("dropbar.configs")
+			local default_enable = dropbar_configs.opts.bar.enable
+			opts.bar.enable = function(buf, win, info)
+				if default_enable(buf, win, info) == false then
+					return false
+				end
+				return not require("config.bigbuf").is_large(buf)
+			end
 			require("dropbar").setup(opts)
 			local dropbar_api = require("dropbar.api")
 			vim.keymap.set("n", "<leader>;", dropbar_api.pick, { desc = "Pick symbol in breadcrumbs" })
@@ -266,11 +291,15 @@ return {
 			-- event, unthrottled. Holding a movement key floods it with calls faster
 			-- than it can keep up, backing up the input queue (shows up as lag and
 			-- the cursor still moving after you let go of the key). Debounce it so
-			-- it only actually renders ~80ms after the cursor settles.
+			-- it only actually renders ~80ms after the cursor settles, and skip it
+			-- entirely on large buffers where even the debounced walk adds up.
 			local biscuits = require("nvim-biscuits")
 			local orig_decorate_nodes = biscuits.decorate_nodes
 			local debounce_timer
 			biscuits.decorate_nodes = function(bufnr, parser_lang)
+				if require("config.bigbuf").is_large(bufnr) then
+					return
+				end
 				if debounce_timer then
 					debounce_timer:stop()
 					debounce_timer:close()

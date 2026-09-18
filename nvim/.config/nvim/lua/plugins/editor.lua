@@ -324,7 +324,8 @@ return {
 		event = "VeryLazy",
 		priority = 1000,
 		config = function()
-			require("tiny-inline-diagnostic").setup({
+			local tid = require("tiny-inline-diagnostic")
+			tid.setup({
 				preset = "modern",
 				options = {
 					multilines = {
@@ -334,6 +335,15 @@ return {
 				},
 			})
 			vim.diagnostic.config({ virtual_text = false })
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+				group = vim.api.nvim_create_augroup("TinyInlineDiagnosticBigBufGuard", { clear = true }),
+				callback = function(args)
+					if tid.config then
+						tid.config.options.multilines.enabled = not require("config.bigbuf").is_large(args.buf)
+					end
+				end,
+			})
 		end,
 	},
 
