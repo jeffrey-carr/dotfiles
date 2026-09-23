@@ -63,18 +63,13 @@ return {
       },
     },
     config = function(_, opts)
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-      -- Use the configs module directly to avoid the deprecated framework warnings
-      -- and the __index recursion issues in Neovim 0.11
-      local configs = require("lspconfig.configs")
+      local blink = require('blink.cmp')
 
       for server, server_opts in pairs(opts.servers or {}) do
-        local config = configs[server]
-        if config then
-          server_opts.capabilities = require("blink.cmp").get_lsp_capabilities(server_opts.capabilities)
-          config.setup(server_opts)
-        end
+        server_opts.capabilities = blink.get_lsp_capabilities(server_opts.capabilities)
+        vim.lsp.config(server, server_opts)
       end
+      vim.lsp.enable(vim.tbl_keys(opts.servers or {}))
 
       -- Add rounded borders to diagnostic float windows as well
       vim.diagnostic.config({
@@ -92,9 +87,20 @@ return {
       vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, { desc = 'Rename symbol' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
-      -- Enable inlay hints for any client that supports them (e.g. gopls, vtsls, pyright)
+      -- Detach any client that attaches to a buffer that isn't a real file
+      -- on disk (diffview://, fugitive://, etc.). General safety net for any
+      -- language server; see lua/plugins/lang/go.lua for gopls's root_dir
+      -- guard, which prevents attachment (and the initial didOpen) entirely.
+      -- Also enable inlay hints for any client that supports them (e.g.
+      -- gopls, vtsls, pyright).
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
+          local lsp_util = require("config.lsp_util")
+          if lsp_util.is_non_file_buf(args.buf) then
+            lsp_util.detach_deferred(args.buf, args.data.client_id)
+            return
+          end
+
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           if client and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
@@ -102,8 +108,8 @@ return {
         end,
       })
       vim.keymap.set('n', '<leader>uh', function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
-      end, { desc = 'Toggle inlay hints' })
+        require("config.lsp_util").toggle_gopls_full_hints(0)
+      end, { desc = 'Toggle full gopls inlay hints' })
     end
   }
 }
