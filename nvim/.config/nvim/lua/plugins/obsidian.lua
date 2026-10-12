@@ -11,6 +11,11 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    -- Runs at startup (the plugin itself is lazy-loaded) so Home.md's links are
+    -- regenerated whenever it's opened.
+    init = function()
+      require("config.notes_home").setup()
+    end,
     opts = {
       workspaces = {
         {
@@ -66,6 +71,7 @@ return {
       },
     },
     keys = {
+      { "<leader>nh", function() require("config.notes_home").open() end, desc = "Notes home" },
       { "<leader>no", "<cmd>ObsidianOpen<cr>", desc = "Open current note in Obsidian app" },
       { "<leader>nf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find note" },
       { "<leader>ns", "<cmd>ObsidianSearch<cr>", desc = "Search notes" },
