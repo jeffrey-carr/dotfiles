@@ -5,8 +5,10 @@ config-file = "theme-current.conf"
 
 # Font
 #font-family = "JetBrainsMono Nerd Font"
-font-family = "Monaspace Neon"
+font-family = "DroidSansM Nerd Font"
+#font-family = "Monaspace Neon"
 font-size = 14
+
 
 # Performance & Aesthetics
 cursor-style = bar

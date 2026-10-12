@@ -207,6 +207,13 @@ return {
 		"MeanderingProgrammer/render-markdown.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		opts = {
+			-- Keep the cursor line rendered in normal mode; raw text shows in insert mode.
+			anti_conceal = { enabled = false },
+			-- Neovim itself un-conceals the cursor line unless concealcursor covers the mode.
+			win_options = { concealcursor = { rendered = "nc" } },
+			-- Rows that wrap are drawn as virtual lines, and the plugin hard-codes showing raw
+			-- markdown for the cursor row of those (no option to disable), which shifts the screen.
+			pipe_table = { wrap = false },
 			checkbox = {
 				custom = {
 					cancelled = { raw = "[~]", rendered = "󰜺 ", highlight = "DiagnosticError", scope_highlight = "Comment" },

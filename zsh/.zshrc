@@ -124,6 +124,19 @@ alias ls="ls -G"
 alias ll="ls -lG"
 alias la="ls -laG"
 
+# tmux keeps the working directory it was started in, and once that directory is
+# deleted (e.g. a removed worktree) tmux 3.7b starts every new pane in the deleted
+# directory instead of the one requested, which leaves zsh with PWD="." and hangs
+# zsh-syntax-highlighting. Start the server from $HOME so it can't be deleted.
+tmux() {
+  if (( $# == 0 )) && ! command tmux list-sessions &>/dev/null; then
+    local dir=$PWD
+    (cd ~ && command tmux new-session -c "$dir")
+  else
+    command tmux "$@"
+  fi
+}
+
 # -----------------------------------------------------------------------------
 # 🎈 6. COMPLETION SYSTEM (Optimized for speed)
 # -----------------------------------------------------------------------------

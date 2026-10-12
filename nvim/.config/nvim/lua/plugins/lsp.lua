@@ -64,6 +64,7 @@ return {
     },
     config = function(_, opts)
       local blink = require('blink.cmp')
+      local INLAY_HINT_CLIENTS = { gopls = true, pyright = true }
 
       for server, server_opts in pairs(opts.servers or {}) do
         server_opts.capabilities = blink.get_lsp_capabilities(server_opts.capabilities)
@@ -91,8 +92,8 @@ return {
       -- on disk (diffview://, fugitive://, etc.). General safety net for any
       -- language server; see lua/plugins/lang/go.lua for gopls's root_dir
       -- guard, which prevents attachment (and the initial didOpen) entirely.
-      -- Also enable inlay hints for any client that supports them (e.g.
-      -- gopls, vtsls, pyright).
+      -- Also enable inlay hints, but only for gopls/pyright (INLAY_HINT_CLIENTS
+      -- above) -- other servers that support them (e.g. vtsls) stay quiet.
       vim.api.nvim_create_autocmd("LspAttach", {
         callback = function(args)
           local lsp_util = require("config.lsp_util")
@@ -102,7 +103,7 @@ return {
           end
 
           local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if client and client.server_capabilities.inlayHintProvider then
+          if client and INLAY_HINT_CLIENTS[client.name] and client.server_capabilities.inlayHintProvider then
             vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
           end
         end,

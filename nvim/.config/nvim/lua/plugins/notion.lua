@@ -15,7 +15,7 @@ return {
       })
     end,
     keys = {
-      { "<leader>no", function() require("notion").openMenu() end, desc = "Open Notion Menu" },
+      { "<leader>N", function() require("notion").openMenu() end, desc = "Open Notion Menu" },
     },
   },
 }

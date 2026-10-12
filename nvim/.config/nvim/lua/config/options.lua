@@ -26,6 +26,9 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.spelllang = "en_us"
+    -- Wide tables and long URLs scroll sideways instead of wrapping, which would
+    -- misalign render-markdown's table border overlays.
+    vim.opt_local.wrap = false
   end,
 })
 
