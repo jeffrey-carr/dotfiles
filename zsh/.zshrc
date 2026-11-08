@@ -34,7 +34,6 @@ fi
 # -----------------------------------------------------------------------------
 export GOPATH=~/go
 export CUSTOMGOPATH=~/go/bin
-export JUMPPATH=~/dev/***REMOVED***
 # Hardcoded Node path for instant startup
 export NODEPATH=$HOME/.nvm/versions/node/v20.19.6/bin
 export LOCALINSTALLS=$HOME/.local/bin
@@ -42,7 +41,7 @@ export CARGO=$HOME/.cargo/bin
 export THEME_SWITCHER=$HOME/.config/theme
 
 # BREWPATH is removed because Homebrew shellenv already handles it automatically
-export PATH=$NODEPATH:$GOPATH:$CUSTOMGOPATH:$JUMPPATH:$LOCALINSTALLS:$CARGO:$THEME_SWITCHER:$PATH
+export PATH=$NODEPATH:$GOPATH:$CUSTOMGOPATH:$LOCALINSTALLS:$CARGO:$THEME_SWITCHER:$PATH
 
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -92,7 +91,13 @@ nvm() {
 # -----------------------------------------------------------------------------
 # 🛠️ 4. PLUGINS & TOOLS
 # -----------------------------------------------------------------------------
-source "$HOME/.config/zsh/aliases"
+[[ -r "$HOME/.config/zsh/aliases" ]] && source "$HOME/.config/zsh/aliases"
+
+# Machine-specific additions: any *.zsh file in conf.d/ (none ship with this repo).
+for conf_file in "$HOME"/.config/zsh/conf.d/*.zsh(N); do
+  source "$conf_file"
+done
+unset conf_file
 
 # Fast directory switching & fuzzy finding
 cache_eval "zoxide_init" "zoxide init zsh" "zoxide"
@@ -123,6 +128,19 @@ alias c="clear"
 alias ls="ls -G"
 alias ll="ls -lG"
 alias la="ls -laG"
+
+# tmux keeps the working directory it was started in, and once that directory is
+# deleted (e.g. a removed worktree) tmux 3.7b starts every new pane in the deleted
+# directory instead of the one requested, which leaves zsh with PWD="." and hangs
+# zsh-syntax-highlighting. Start the server from $HOME so it can't be deleted.
+tmux() {
+  if (( $# == 0 )) && ! command tmux list-sessions &>/dev/null; then
+    local dir=$PWD
+    (cd ~ && command tmux new-session -c "$dir")
+  else
+    command tmux "$@"
+  fi
+}
 
 # -----------------------------------------------------------------------------
 # 🎈 6. COMPLETION SYSTEM (Optimized for speed)

@@ -142,14 +142,4 @@ return {
 			},
 		},
 	},
-
-	-- Wakatime (Conditional based on profile)
-	-- {
-	--   "wakatime/vim-wakatime",
-	--   lazy = false,
-	--   cond = function()
-	--     -- Only load if we are home, as requested in old config
-	--     return _G.jeff_profile.is_home
-	--   end,
-	-- },
 }

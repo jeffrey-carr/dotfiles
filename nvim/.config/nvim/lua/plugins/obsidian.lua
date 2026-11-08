@@ -24,8 +24,25 @@ return {
         nvim_cmp = false,
         min_chars = 2,
       },
+      -- New notes land in inbox/ and get triaged during the weekly review.
+      notes_subdir = "inbox",
+      new_notes_location = "notes_subdir",
+      -- Name new notes after their title in kebab-case ("Fraud Skill" -> fraud-skill.md)
+      -- instead of the default timestamp ID.
+      note_id_func = function(title)
+        if title == nil or title == "" then
+          return tostring(os.date("%Y-%m-%d-%H%M%S"))
+        end
+        return (title:lower():gsub("[^%w%s-]", ""):gsub("%s+", "-"):gsub("%-+", "-"):gsub("^%-", ""):gsub("%-$", ""))
+      end,
+      templates = {
+        folder = "templates",
+        date_format = "%Y-%m-%d",
+        time_format = "%H:%M",
+      },
       daily_notes = {
         folder = "daily notes",
+        template = "daily.md",
       },
       attachments = {
         img_folder = "images",
@@ -55,6 +72,7 @@ return {
       { "<leader>nb", "<cmd>ObsidianBacklinks<cr>", desc = "Show backlinks" },
       { "<leader>nl", "<cmd>ObsidianFollowLink<cr>", desc = "Follow link under cursor" },
       { "<leader>nn", "<cmd>ObsidianNew<cr>", desc = "New note" },
+      { "<leader>nT", "<cmd>ObsidianNewFromTemplate<cr>", desc = "New note from template" },
       { "<leader>nd", "<cmd>ObsidianToday<cr>", desc = "Open today's daily note" },
       { "<leader>nr", "<cmd>ObsidianRename<cr>", desc = "Rename note (updates backlinks)" },
       { "<leader>nc", "<cmd>ObsidianToggleCheckbox<cr>", desc = "Toggle checkbox" },

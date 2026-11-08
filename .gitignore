@@ -3,3 +3,4 @@
 zsh/.config/zsh/aliases
 zsh/.config/zsh/scripts/work/
 .git/.gitconfig
+__pycache__/

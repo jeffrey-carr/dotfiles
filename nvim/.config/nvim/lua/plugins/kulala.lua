@@ -8,8 +8,17 @@ return {
     { "<leader>rn", function() require("kulala").scratchpad() end, desc = "REST scratchpad" },
     -- Run the request under the cursor
     { "<leader>rr", function() require("kulala").run() end, desc = "Run REST request" },
+    -- Re-open the response window without re-sending the request
+    { "<leader>ro", function() require("kulala").open() end, desc = "Open REST response" },
     -- Re-run the last request
     { "<leader>rl", function() require("kulala").replay() end, desc = "Replay last REST request" },
   },
-  opts = {},
+  opts = {
+    ui = {
+      win_opts = {
+        -- The response window folds by indent; keep it fully open by default.
+        wo = { foldlevel = 99 },
+      },
+    },
+  },
 }

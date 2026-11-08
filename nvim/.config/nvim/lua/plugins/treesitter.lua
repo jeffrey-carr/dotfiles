@@ -64,6 +64,39 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		event = "BufRead",
 		opts = { max_lines = 1, trim_scope = "outer" },
+		config = function(_, opts)
+			local tsc = require("treesitter-context")
+			tsc.setup(opts)
+
+			-- The context line is a floating window, and while any float is open nvim
+			-- redraws the whole window on every scrolled line instead of scrolling the
+			-- terminal. Inside a function taller than the screen the float never goes
+			-- away, so holding j sent ~20MB/9s to tmux (vs ~1MB) and the display fell
+			-- seconds behind. Hide it for the duration of a scroll burst. Only bring it
+			-- back if this guard hid it, so a manual :TSContext disable sticks.
+			local hidden_by_scroll = false
+			local timer = assert(vim.uv.new_timer())
+			local reenable = vim.schedule_wrap(function()
+				if hidden_by_scroll then
+					hidden_by_scroll = false
+					tsc.enable()
+				end
+			end)
+
+			vim.api.nvim_create_autocmd("WinScrolled", {
+				group = vim.api.nvim_create_augroup("TSContextScrollGuard", { clear = true }),
+				callback = function()
+					if not hidden_by_scroll then
+						if not tsc.enabled() then
+							return
+						end
+						hidden_by_scroll = true
+						tsc.disable()
+					end
+					timer:start(150, 0, reenable)
+				end,
+			})
+		end,
 	},
 	{
 		"windwp/nvim-ts-autotag",

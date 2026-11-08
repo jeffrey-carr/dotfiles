@@ -358,6 +358,7 @@ return {
 		},
 		config = function()
 			require("tiny-glimmer").setup({
+				hijack_ft_disabled = { "alpha", "snacks_dashboard", "snacks_picker_input", "neo-tree" },
 				overwrite = {
 					yank = { enabled = true },
 					paste = { enabled = true },

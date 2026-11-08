@@ -68,6 +68,9 @@ return {
   { "mellow-theme/mellow.nvim", name = "mellow", lazy = true },
   { "tiagovla/tokyodark.nvim", name = "tokyodark", lazy = true },
   { "olimorris/onedarkpro.nvim", name = "onedarkpro", lazy = true },
+  { "tan-wei/rigel.nvim", name = "rigel", lazy = true },
+  { "RazikSF/lumina-themes", name = "lumina", lazy = true },
+  { "ntk148v/lauds", name = "lauds", lazy = true },
 
 
   {
@@ -83,7 +86,7 @@ return {
         local variant_name = parts[2] or ""
 
         -- Determine background style
-        local is_light = variant_name:find("light") or variant_name:find("dawn") or variant_name:find("latte") or theme_name == "deepwhite" or theme_name == "newpaper" or theme_name == "paper"
+        local is_light = variant_name:find("light") or variant_name:find("dawn") or variant_name:find("latte") or theme_name == "deepwhite" or theme_name == "newpaper" or theme_name == "paper" or theme_name == "lauds"
         vim.opt.background = is_light and "light" or "dark"
 
         -- Apply colorscheme
@@ -190,6 +193,14 @@ return {
           else
             vim.cmd.colorscheme "onedark"
           end
+        elseif theme_name == "rigel" then
+          vim.cmd.colorscheme "rigel"
+        elseif theme_name == "lumina" then
+          -- shades variants are "<flavor>-<dark|light>", which maps 1:1 to the
+          -- upstream colorscheme names (e.g. "rayleigh-dark" -> "lumina-rayleigh-dark").
+          vim.cmd.colorscheme("lumina-" .. variant_name)
+        elseif theme_name == "lauds" then
+          vim.cmd.colorscheme "lauds"
         else
           pcall(vim.cmd.colorscheme, theme_name)
         end

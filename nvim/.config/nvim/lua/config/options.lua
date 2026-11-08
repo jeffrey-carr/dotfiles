@@ -14,11 +14,12 @@ vim.opt.synmaxcol = 240
 -- showcmd indicator has nowhere to draw. Route it through the statusline (%S)
 -- instead -- see the lualine component in plugins/ui.lua.
 vim.opt.showcmdloc = "statusline"
-
--- Determine user environment based on git email
-local git_email = vim.fn.system('git config --get user.email'):gsub('%s+', '')
-local is_home = git_email == 'jeffrey.carr98@gmail.com'
-local is_work = git_email == '***REMOVED***'
+-- tmux answers each synchronized-update block from nvim by repainting the whole
+-- pane, so holding j sent ~37MB/9s to the terminal (vs ~1MB without) and the
+-- display fell seconds behind. Ghostty on its own handles termsync fine.
+if vim.env.TMUX then
+  vim.opt.termsync = false
+end
 
 -- Mostly prose there -- spellcheck helps, elsewhere it'd just flag identifiers.
 vim.api.nvim_create_autocmd("FileType", {
@@ -26,11 +27,8 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.spell = true
     vim.opt_local.spelllang = "en_us"
+    -- Wide tables and long URLs scroll sideways instead of wrapping, which would
+    -- misalign render-markdown's table border overlays.
+    vim.opt_local.wrap = false
   end,
 })
-
--- Store profile information globally so plugins can access it conditionally
-_G.jeff_profile = {
-  is_home = is_home,
-  is_work = is_work,
-}

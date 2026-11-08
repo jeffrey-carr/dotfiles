@@ -48,3 +48,8 @@
 	
 [merge]
 	tool = vimdiff
+
+# Machine-specific settings (e.g. a different user.email). Keep this block last so
+# its values win. Git skips the include when the file does not exist.
+[include]
+	path = ~/.gitconfig.local
