@@ -71,6 +71,7 @@ return {
   { "tan-wei/rigel.nvim", name = "rigel", lazy = true },
   { "RazikSF/lumina-themes", name = "lumina", lazy = true },
   { "ntk148v/lauds", name = "lauds", lazy = true },
+  { "srcery-colors/srcery-vim", name = "srcery", lazy = true },
 
 
   {
@@ -201,6 +202,8 @@ return {
           vim.cmd.colorscheme("lumina-" .. variant_name)
         elseif theme_name == "lauds" then
           vim.cmd.colorscheme "lauds"
+        elseif theme_name == "srcery" then
+          vim.cmd.colorscheme "srcery"
         else
           pcall(vim.cmd.colorscheme, theme_name)
         end

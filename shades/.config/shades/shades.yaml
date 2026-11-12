@@ -1578,5 +1578,26 @@ themes:
           AQUA: "#147a65"
           PURPLE: "#7264a8"
           FG: "#101010"
+  srcery:
+    name: "srcery"
+    variants:
+      main:
+        light: false
+        colors:
+          BGDIM: "#0e0d0c"
+          BG0: "#121110"
+          BG1: "#1c1b19"
+          BG2: "#262522"
+          BG3: "#3b3935"
+          BG4: "#504d47"
+          BG5: "#917e6b"
+          RED: "#ef2f27"
+          ORANGE: "#ff5f00"
+          YELLOW: "#fbb829"
+          GREEN: "#519f50"
+          BLUE: "#2c78bf"
+          AQUA: "#0aaeb3"
+          PURPLE: "#e02c6d"
+          FG: "#fce8c3"
 
 
