@@ -1,8 +1,13 @@
 add_newline = false
 format = """
-[╭─](bold blue) $directory$git_branch$git_status$git_state
+[╭─](bold blue) $directory${custom.git_branch}$git_status$git_state
 [╰─](bold blue) $character
 """
+
+[custom.git_branch]
+when = '[ -z "$TMUX" ]'
+command = "starship module git_branch"
+format = "$output"
 
 [character]
 success_symbol = "[❯](bold green)"

@@ -12,6 +12,7 @@ brew "zsh-autosuggestions"
 brew "zsh-syntax-highlighting"
 brew "lazygit"
 brew "git-delta"
+brew "btop"
 
 # Casks (GUI Applications)
 cask "ghostty"

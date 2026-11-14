@@ -23,7 +23,7 @@ return {
         bottom_search = true,
         command_palette = true,
         long_message_to_split = true,
-        inc_rename = false,
+        inc_rename = true,
         -- Rounded border for hover/signature-help popups, now that they're
         -- rendered by Noice again instead of a manually-bordered vanilla float.
         lsp_doc_border = true,

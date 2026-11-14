@@ -42,6 +42,13 @@ return {
     end,
   },
 
+  -- Incremental LSP rename with live buffer preview
+  {
+    "smjonas/inc-rename.nvim",
+    cmd = "IncRename",
+    opts = {},
+  },
+
   -- LSP configuration
   {
     "neovim/nvim-lspconfig",
@@ -85,7 +92,9 @@ return {
       -- (on VeryLazy, after this runs) -- look it up at call time, not here,
       -- so the keymap picks up Noice's version instead of the vanilla one.
       vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, { desc = 'Hover Documentation' })
-      vim.keymap.set('n', '<leader>rs', vim.lsp.buf.rename, { desc = 'Rename symbol' })
+      vim.keymap.set('n', '<leader>rs', function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true, desc = 'Rename symbol (live preview)' })
       vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'Code Action' })
 
       -- Detach any client that attaches to a buffer that isn't a real file

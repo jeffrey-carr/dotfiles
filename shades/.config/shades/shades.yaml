@@ -25,7 +25,7 @@ client:
     window-status-format: " #I:#W "
     window-status-current-format: "#[fg={PURPLE}]#[fg={BG0},bg={PURPLE},bold]#I:#W#[bg=default,fg={PURPLE},nobold]"
     status-left: "#{?client_prefix,#[fg=red]#[bg=red]#[fg={BG0}]󰠠 #S#[bg=default]#[fg=red] ,#[fg={PURPLE}]#[bg={PURPLE}]#[fg={BG0}]#[bold]󰇄 #S#[bg=default]#[nobold]#[fg={PURPLE}] } "
-    status-right: "#{?#($HOME/.tmux_scripts/tmux-spotify-info),#[fg={GREEN}]#[bg={GREEN}]#[fg={BG0}]#($HOME/.tmux_scripts/tmux-spotify-info)#[bg=default]#[fg={GREEN}] ,}#[fg={BLUE}]#[bg={BLUE}]#[fg={BG0}]󰥔 %H:%M#[bg=default]#[fg={BLUE}] #[fg={PURPLE}]#[bg={PURPLE}]#[fg={BG0}]󰃭 %Y-%m-%d#[bg=default]#[fg={PURPLE}]"
+    status-right: "#{?#($HOME/.tmux_scripts/tmux-spotify-info),#[fg={GREEN}]#[bg={GREEN}]#[fg={BG0}]#($HOME/.tmux_scripts/tmux-spotify-info)#[bg=default]#[fg={GREEN}] ,}#{?#($HOME/.tmux_scripts/git-status.sh #{pane_current_path}),#[fg={AQUA}]#[bg={AQUA}]#[fg={BG0}]#($HOME/.tmux_scripts/git-status.sh #{pane_current_path})#[bg=default]#[fg={AQUA}] ,}#[fg={ORANGE}]#[bg={ORANGE}]#[fg={BG0}]#($HOME/.tmux_scripts/sysstat.py)#[bg=default]#[fg={ORANGE}] #[fg={BLUE}]#[bg={BLUE}]#[fg={BG0}]󰥔 %H:%M#[bg=default]#[fg={BLUE}] #[fg={PURPLE}]#[bg={PURPLE}]#[fg={BG0}]󰃭 %Y-%m-%d#[bg=default]#[fg={PURPLE}]"
 themes:
   rose-pine:
     name: "rose-pine"

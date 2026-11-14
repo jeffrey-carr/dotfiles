@@ -253,11 +253,13 @@ return {
 			{ "<leader>gs", "<cmd>CellularAutomaton scramble<CR>", desc = "Scramble" },
 			{ "<leader>gl", "<cmd>CellularAutomaton langtons_ant<CR>", desc = "Langton's ant" },
 			{ "<leader>gw", "<cmd>CellularAutomaton fireworks<CR>", desc = "Fireworks" },
+			{ "<leader>ga", "<cmd>CellularAutomaton falling_sand<CR>", desc = "Falling sand" },
 		},
 		config = function()
 			local automaton = require("cellular-automaton")
 			automaton.register_animation(require("automata.langtons_ant"))
 			automaton.register_animation(require("automata.fireworks"))
+			automaton.register_animation(require("automata.falling_sand"))
 		end,
 	},
 
@@ -424,5 +426,29 @@ return {
 		config = function()
 			require("goto-preview").setup({})
 		end,
+	},
+
+	-- Precognition (Visual motion hints for w/b/e/$/{/} etc.)
+	{
+		"tris203/precognition.nvim",
+		opts = {
+			startVisible = false,
+		},
+		keys = {
+			{
+				"<leader>up",
+				function()
+					require("precognition").toggle()
+				end,
+				desc = "Toggle Precognition motion hints",
+			},
+			{
+				"<leader>uP",
+				function()
+					require("precognition").peek()
+				end,
+				desc = "Peek Precognition motion hints",
+			},
+		},
 	},
 }

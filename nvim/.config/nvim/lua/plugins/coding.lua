@@ -121,6 +121,25 @@ return {
 		end,
 	},
 
+	-- Structural AST Split / Join
+	{
+		"Wansmer/treesj",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		keys = {
+			{
+				"<leader>j",
+				function()
+					require("treesj").toggle()
+				end,
+				desc = "Split / Join AST block",
+			},
+		},
+		opts = {
+			use_default_keymaps = false,
+			max_join_length = 150,
+		},
+	},
+
 	-- Snacks utility library
 	{
 		"folke/snacks.nvim",
@@ -133,12 +152,53 @@ return {
 			statuscolumn = { enabled = false },
 			words = { enabled = true },
 			dashboard = { enabled = true },
+			scratch = { enabled = true },
+			zen = { enabled = true },
+			gitbrowse = { enabled = true },
 			styles = {
 				notification = {
 					wo = {
 						winblend = 0,
 					},
 				},
+			},
+		},
+		keys = {
+			{
+				"<leader>.",
+				function()
+					Snacks.scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>S",
+				function()
+					Snacks.scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
+			{
+				"<leader>z",
+				function()
+					Snacks.zen()
+				end,
+				desc = "Toggle Zen Mode",
+			},
+			{
+				"<leader>Z",
+				function()
+					Snacks.zen.zoom()
+				end,
+				desc = "Toggle Zoom Current Pane",
+			},
+			{
+				"<leader>gB",
+				function()
+					Snacks.gitbrowse()
+				end,
+				mode = { "n", "v" },
+				desc = "Git Browse (Open in Browser)",
 			},
 		},
 	},
